@@ -9,24 +9,31 @@ body {
     padding: 0px;
 }
 
-h1 {
-    display:block;
-    color:#DD88AA;
+h1, h2 {
+    display:inline;
+    color:#FFAADD;
     font-family:'Courier New', Courier, monospace;
     font-weight:bold;
     font-size: 40px;
     text-align:left;
-    padding:1%;
+    padding-left:1%;
+    border-bottom-color:#AA2277;
+    border-bottom-width: 1%;
+    border-bottom-style:solid;
+}
+
+h2 {
+    font-size: 25px;
 }
 
 p {
-    color:#DD88AA;
+    color:#EE99CC;
     font-family:'Courier New', Courier, monospace;
     font-weight:bold;
     font-size: 20px;
     text-align:left;
     padding:1%;
-    border-left-color:#DD88AA;
+    border-left-color:#CC77AA;
     border-left-width: 1%;
     border-left-style: dashed;
     margin-left: 1%
