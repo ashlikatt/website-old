@@ -574,7 +574,7 @@ var initialCode;
 
 addEventListener('load', function() {
     mapCode = document.getElementById('codebox');
-    initialCode = mapCode.innerHTML;
+    initialCode = mapCode.value;
     
     inputBox = document.getElementById('inputbox');
     inputBox.addEventListener('keyup', function(e) {

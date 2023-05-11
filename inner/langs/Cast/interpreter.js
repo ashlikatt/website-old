@@ -436,7 +436,7 @@ var initialCode;
 
 addEventListener('load', function() {
     textBox = document.getElementById("console");
-	initialCode = document.getElementById("codebox").innerHTML;
+	initialCode = document.getElementById("codebox").value;
 });
 
 function printMsg(m) {
