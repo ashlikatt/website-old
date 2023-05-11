@@ -52,8 +52,8 @@ textarea {
     border:none;
     color:#FFCCDD;
     outline:none;
-    overflow-y:scroll;
-    overflow-x:scroll;
+    overflow-y:auto;
+    overflow-x:auto;
     scrollbar-color: #FFCCDD #441526;
     scrollbar-width:thin;
 
@@ -66,7 +66,6 @@ p {
     resize:none;
     padding: 10px 5px;
     margin: 0px 0px;
-    overflow:hidden;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
@@ -75,7 +74,8 @@ p {
     background-color: #222222;
     border:none;
     color:#FFCCDD;
-    overflow-y:scroll;
+    overflow:hidden;
+    overflow-y:auto;
     scrollbar-color: #FFCCDD #441526;
     scrollbar-width:thin;
 
