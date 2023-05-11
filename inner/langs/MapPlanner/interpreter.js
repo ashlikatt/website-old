@@ -570,9 +570,11 @@ function clearConsole() {
 
 var mapCode;
 var inputBox;
+var initialCode;
 
 addEventListener('load', function() {
     mapCode = document.getElementById('codebox');
+    initialCode = mapCode.innerHTML;
     
     inputBox = document.getElementById('inputbox');
     inputBox.addEventListener('keyup', function(e) {
@@ -591,3 +593,9 @@ addEventListener('load', function() {
     buildMap(mapCode.value);
 });
 
+window.addEventListener("beforeunload", function (e) {
+    if (mapCode.value === initialCode) return;
+    var confirmationMessage = 'Map data will be erased. Really leave?';
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});

@@ -432,6 +432,12 @@ function evalExpr(prog, expr, vars) {
 
 var consoleBuffer = "";
 var textBox;
+var initialCode;
+
+addEventListener('load', function() {
+    textBox = document.getElementById("console");
+	initialCode = document.getElementById("codebox").innerHTML;
+});
 
 function printMsg(m) {
 	consoleBuffer += m;
@@ -444,6 +450,13 @@ function clearConsole() {
 }
 
 function runButton() {
-    textBox = document.getElementById("console");
     runProgram(document.getElementById("codebox").value, document.getElementById("inputbox").value)
 }
+
+
+window.addEventListener("beforeunload", function (e) {
+    if (document.getElementById("codebox").value === initialCode) return;
+    var confirmationMessage = 'Map data will be erased. Really leave?';
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});
