@@ -38,7 +38,7 @@ button {
     display:inline-block;
 }
 
-textarea {
+textarea, input {
     resize:none;
     padding: 10px 5px;
     margin: 0px 0px;
@@ -84,3 +84,13 @@ p {
     font-size: 16px;
 }
 
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    cursor:not-allowed;
+    color:#DD88AA;
+    background-color:#883355;
+}
