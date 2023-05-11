@@ -65,3 +65,7 @@ button:hover {
     color:#FFAADD;
     transition:0.1s;
 }
+
+::selection { background:#777777; color:#000000; }
+::-moz-selection { background:#777777; color:#000000; }
+::-webkit-selection { background:#777777; color:#000000; }

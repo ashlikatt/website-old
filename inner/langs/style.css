@@ -1,0 +1,86 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    padding:0px 0;
+    margin:0px 0;
+    resize:none;
+    overflow:hidden;
+}
+
+.rows {
+    display:inline-flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+}
+
+.columns {
+    display:inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+}
+
+.row, .column {
+    display:inline-block;
+    flex: 1;
+}
+
+.pad {
+    padding: 10px 10px;
+}
+
+button {
+    display:inline-block;
+}
+
+textarea {
+    resize:none;
+    padding: 10px 5px;
+    margin: 0px 0px;
+    overflow:hidden;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #353535;
+    border:none;
+    color:#FFCCDD;
+    outline:none;
+    overflow-y:scroll;
+    overflow-x:scroll;
+    scrollbar-color: #FFCCDD #441526;
+    scrollbar-width:thin;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+}
+
+p {
+    resize:none;
+    padding: 10px 5px;
+    margin: 0px 0px;
+    overflow:hidden;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #222222;
+    border:none;
+    color:#FFCCDD;
+    overflow-y:scroll;
+    scrollbar-color: #FFCCDD #441526;
+    scrollbar-width:thin;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+}
+

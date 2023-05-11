@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../../style.css">
+        <link rel="stylesheet" href="../style.css">
+        <script src="interpreter.js"></script>
+        <title>Cast - Ashli's Site</title>
+        <meta name="author" content="Ashli Katt">
+    </head>
+    <body>
+        <div class="rows">
+            <div class="row" style="flex:3">
+                <div class="rows">
+                    <div class="row pad" style="flex:1">
+                        <h1>Cast</h1>
+                        <a href="../../../index.html"><button style="float:right;margin:0px 5px;">Home</button></a>
+                        <a href="https://esolangs.org/wiki/Cast" target="_blank"><button style="float:right;margin:0px 5px;">Reference</button></a>
+                    </div>
+                    <div class="row" style="flex:15">
+                        <div class="columns">
+                            <div class="column pad" style="flex:7">
+                                <textarea id="codebox" spellcheck="false">Code Here</textarea>
+                            </div>
+                            <div class="column" style="flex:1">
+                                <div class="rows">
+                                    <div class="row pad" style="flex:4">
+                                        <textarea id="inputbox" spellcheck="false">Input Here</textarea>
+                                    </div>
+                                    <div class="row pad" style="flex:1">
+                                        <button style="width:100%;height:100%;" id="execButton" onclick="runButton();">Execute</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pad" style="flex:1">
+                <p id="console"></p>
+            </div>
+        </div>
+    </body>
+</html>
