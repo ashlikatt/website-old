@@ -66,9 +66,9 @@ button:hover {
     transition:0.1s;
 }
 
-::selection { background:#777777; color:#000000; }
-::-moz-selection { background:#777777; color:#000000; }
-::-webkit-selection { background:#777777; color:#000000; }
+::selection { background:#884477; color:#000000; }
+::-moz-selection { background:#884477; color:#000000; }
+::-webkit-selection { background:#884477; color:#000000; }
 
 .rows {
     display:inline-flex;
