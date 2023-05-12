@@ -235,7 +235,7 @@ var currentMap;
 const definedCommands = {
 	'compile': r => {
 		printMsg("Recompiling...");
-		buildMap(mapCode.value());
+		buildMap(mapCode.value);
 		printMsg("Done!")
 	},
 	'help': r => {
