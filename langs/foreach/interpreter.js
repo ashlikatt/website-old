@@ -506,9 +506,26 @@ function runButton() {
 }
 
 
-window.addEventListener("beforeunload", function (e) {
+addEventListener("beforeunload", function (e) {
     if (document.getElementById("codebox").value === initialCode) return;
     var confirmationMessage = 'Map data will be erased. Really leave?';
     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
 });
+
+addEventListener("keydown", function (e) {
+	if (e.ctrlKey && e.key === 's') {
+		e.preventDefault();
+		download("code.forx", document.getElementById("codebox").value);
+	}
+});
+
+function download(filename, text) {
+	let e = document.createElement('a');
+	e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	e.setAttribute('download', filename);
+	e.style.display = 'none';
+	document.body.appendChild(e);
+	e.click();
+	document.body.removeChild(e);
+}
