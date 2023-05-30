@@ -123,3 +123,17 @@ button:hover {
     float:right;
     margin-left:10px;
 }
+
+@keyframes mymove{
+    from{background-color: #110700; bottom: 0px; width: 15px; height: 15px;}
+    30%{background-color: #FF3300;}
+    to{background-color: #110700; bottom: 450px; width: 5px; height: 5px;}
+}
+
+.ember {
+    position: absolute;
+    left: 0px;
+    border-radius: 50%;
+    animation: mymove 3s infinite;
+    animation-timing-function: ease-in;
+}
