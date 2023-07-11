@@ -115,14 +115,12 @@ function invalidate() {
     valid = false;
     document.getElementById("recodeButton").classList.add("disabled");
     document.getElementById("copyButton").classList.add("disabled");
-    console.log("invalidate")
 }
 
 function validate() {
     valid = true;
     document.getElementById("recodeButton").classList.remove("disabled");
     document.getElementById("copyButton").classList.remove("disabled");
-    console.log("validate")
 }
 
 function copyButton() {
@@ -135,10 +133,8 @@ function copyButton() {
 function recodeButton() {
     if (!valid) return;
     const packet = `{"source":"Ashli's Site","type":"nbt","data":"{'id':'minecraft:stone','Count':1,tag:{display:{Lore:${tellraw.replaceAll('"', '\\"')}}}}"}`;
-    console.log(packet);
     const ws = new WebSocket("ws://localhost:31371");
     ws.addEventListener('open', e => {
-        console.log("a")
         ws.send(packet);
     })
 }
