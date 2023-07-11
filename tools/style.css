@@ -1,0 +1,105 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    padding:0px 0;
+    margin:0px 0;
+    resize:none;
+    overflow:hidden;
+}
+
+
+
+button {
+    display:inline-block;
+}
+
+textarea, input {
+    resize:none;
+    padding: 10px 5px;
+    margin: 0px 0px;
+    overflow:hidden;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #353535;
+    border:none;
+    color:#FFCCDD;
+    outline:none;
+    overflow-y:auto;
+    overflow-x:auto;
+    scrollbar-color: #FFCCDD #441526;
+    scrollbar-width:thin;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+}
+
+p {
+    resize:none;
+    padding: 10px 5px;
+    margin: 0px 0px;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    min-width: 100%;
+    min-height: 100%;
+    max-width:100%;
+    max-height:100%;
+    width:0px;
+    height: 0px;
+    background-color: #222222;
+    border:none;
+    color:#FFCCDD;
+    overflow:hidden;
+    overflow-y:auto;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+}
+
+canvas {
+    resize:none;
+    padding: 10px 10px;
+    margin: 0px 0px;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    min-width: 100%;
+    min-height: 100%;
+    max-width:100%;
+    max-height:100%;
+    width:0px;
+    height: 0px;
+    background-color: #222222;
+    border:none;
+    color:#FFCCDD;
+    overflow:hidden;
+    overflow-y:auto;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+}
+
+img {
+    width: 100%; 
+    height: 100%;
+    object-fit: scale-down;
+}
+
+#pixelImage {
+    width: 100%; 
+    height: 100%;
+    object-fit: contain;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;                 /* Universal support since 2021   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+ */
+}

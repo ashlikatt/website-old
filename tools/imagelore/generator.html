@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="/caticon.png">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="../style.css">
+        <script src="generator.js"></script>
+        <title>Lore Image Generator - Ashli's Site</title>
+        <meta name="author" content="Ashli Katt">
+    </head>
+    <body>
+        <div class="rows">
+            <div class="row pad" style="flex:1">
+                <h1>Lore Image Generator</h1>
+                <a href="/tools/tools.html"><button class="cornerButton">Tools</button></a>
+            </div>
+            <div class="row" style="flex:1">
+                <div class="columns">
+                    <div class="column pad" style="flex:1">
+                        <input id="inputfile" accept="image/*" type="file">a</input>
+                    </div>
+                    <div class="column pad" style="flex:1">
+                        <p style="overflow:hidden">Quality
+                        <input id="inputrange" type="range" min="1" max="100" value="3"></input>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="flex:9">
+                <div class="columns">
+                    <div class="column pad">
+                        <p id="imageDisplay" style="overflow:hidden"></p>
+                    </div>
+                    <div class="column pad">
+                        <p id="pixelDisplay" style="overflow:hidden"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="flex:2">
+                <div class="columns">
+                    <div class="column pad">
+                        <button style="width:100%;height:100%;" id="copyButton" onclick="copyButton();">Copy Command</button>
+                    </div>
+                    <div class="column pad">
+                        <button style="width:100%;height:100%;" id="recodeButton" onclick="recodeButton();">Send via Recode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
