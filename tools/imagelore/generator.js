@@ -72,7 +72,6 @@ function updateOutput() {
         display.appendChild(img);
     }
 
-    const output = document.getElementById("output")
     if (imageBitmap) {
         const data = imageBitmap.data;
         let currentIndex = 0;
