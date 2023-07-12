@@ -32,10 +32,11 @@ function inputChanged() {
 
         inputImage = URL.createObjectURL(file);
         createImageBitmap(file).then(bitmap => {
-            const maxWidth = Math.min(100, bitmap.width);
-            const maxHeight = Math.min(100, bitmap.height);
-            const targetWidth = interpInt(5, maxWidth, quality/100);
-            const targetHeight = interpInt(5, maxHeight, quality/100);
+            const scale = Math.min(100 / bitmap.width, 100 / bitmap.height)
+            const targetWidth = interpInt(5, bitmap.width * scale, quality/100);
+            const targetHeight = interpInt(5, bitmap.height * scale, quality/100);
+            console.log(scale)
+            console.log(targetWidth + " " + targetHeight)
             
             const canvas = document.createElement("canvas");
             canvas.width = targetWidth;
