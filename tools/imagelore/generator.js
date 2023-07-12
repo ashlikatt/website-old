@@ -32,21 +32,26 @@ function inputChanged() {
 
         inputImage = URL.createObjectURL(file);
         createImageBitmap(file).then(bitmap => {
+            // Figure out size
             const scale = Math.min(100 / bitmap.width, 100 / bitmap.height)
             const targetWidth = interpInt(5, bitmap.width * scale, quality/100);
             const targetHeight = interpInt(5, bitmap.height * scale, quality/100);
-            console.log(scale)
-            console.log(targetWidth + " " + targetHeight)
             
+            // Create canvas with size
             const canvas = document.createElement("canvas");
             canvas.width = targetWidth;
             canvas.height = targetHeight;
+
+            // Draw image
             const context = canvas.getContext("2d");
             context.drawImage(bitmap, 0, 0, targetWidth, targetHeight)
+
+            // Save drawn image (Resized lmao)
             imageBitmap = context.getImageData(0, 0, targetWidth, targetHeight);
             imageBitmapURL = canvas.toDataURL();
+            
+            // Cleanup
             canvas.remove();
-
             updateOutput();
         });
     } catch (e) {
