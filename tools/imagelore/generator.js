@@ -79,23 +79,37 @@ function updateOutput() {
     }
 
     if (imageBitmap) {
+        // Init
         const data = imageBitmap.data;
         let currentIndex = 0;
         const lines = [];
+
+        // For every line
         for (let line = 0; line < imageBitmap.height; line++) {
             let lineData = [];
+            
+            // For every pixel in line
             for (let column = 0; column < imageBitmap.width; column++) {
+                // Grab pixel data
                 let r = data[currentIndex++];
                 let g = data[currentIndex++];
                 let b = data[currentIndex++];
-                currentIndex++;
-                if (lineData.length === 0) {
-                    lineData.push('{"italic":false,"color":"' + hex(r, g, b) + '","text":"█"}');
-                } else {
-                    lineData.push('{"color":"' + hex(r, g, b) + '","text":"█"}');
+                currentIndex++; // Skip alpha
+                
+                // Determine what to do
+                let color = hex(r, g, b);
+                if (lineData.length > 0 && lineData[lineData.length-1].color === color) { // Identical to last pixel, merge
+                    lineData[lineData.length-1].count++;
+                } else { // New pixel data
+                    lineData.push({ 
+                        first: lineData.length === 0,
+                        color: color,
+                        count: 1  
+                    });
                 }
+
             }
-            lines.push("'[" + lineData.join(",") + "]'");
+            lines.push("'[" + lineData.map(pixelDataToString).join(",") + "]'");
         }
         tellraw = "[" + lines.join(",") + "]";
 
@@ -119,13 +133,21 @@ function hex(r, g, b) {
 function invalidate() {
     valid = false;
     document.getElementById("recodeButton").classList.add("disabled");
-    document.getElementById("copyButton").classList.add("disabled");
+    const copyButton = document.getElementById("copyButton");
+    copyButton.classList.add("disabled");
+    copyButton.classList.remove("warning");
 }
 
 function validate() {
     valid = true;
     document.getElementById("recodeButton").classList.remove("disabled");
-    document.getElementById("copyButton").classList.remove("disabled");
+    const copyButton = document.getElementById("copyButton");
+    copyButton.classList.remove("disabled");
+    if (tellraw.length + 31 > 32500) { // Too large for command block
+        copyButton.classList.add("warning");
+    } else {
+        copyButton.classList.remove("warning");
+    }
 }
 
 function copyButton() {
@@ -139,7 +161,15 @@ function recodeButton() {
     if (!valid) return;
     const packet = `{"source":"Ashli's Site","type":"nbt","data":"{'id':'minecraft:stone','Count':1,tag:{display:{Lore:${tellraw.replaceAll('"', '\\"')}}}}"}`;
     const ws = new WebSocket("ws://localhost:31371");
-    ws.addEventListener('open', e => {
+    ws.addEventListener('open', _ => {
         ws.send(packet);
     })
+}
+
+function pixelDataToString(data) {
+    if (data.first) {
+        return `{"italic":false,"color":"${data.color}","text":"${"█".repeat(data.count)}"}`
+    } else {
+        return `{"color":"${data.color}","text":"${"█".repeat(data.count)}"}`
+    }
 }

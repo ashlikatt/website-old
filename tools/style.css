@@ -103,3 +103,12 @@ img {
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+ */
 }
+
+.warning {
+    background-color:#888855;
+    color:#DDDDAA;
+}
+.warning:hover {
+    background-color:#AAAA88;
+    color:#FFFFDD;
+}
