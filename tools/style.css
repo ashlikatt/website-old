@@ -23,13 +23,13 @@ textarea, input {
     box-sizing:border-box;
     width: 100%;
     height: 100%;
-    background-color: #353535;
+    background-color: #332244;
     border:none;
-    color:#FFCCDD;
+    color:#AA99CC;
     outline:none;
     overflow-y:auto;
     overflow-x:auto;
-    scrollbar-color: #FFCCDD #441526;
+    scrollbar-color: #AA99CC #664477;
     scrollbar-width:thin;
 
     font-family:'Courier New', Courier, monospace;
@@ -50,9 +50,9 @@ p {
     max-height:100%;
     width:0px;
     height: 0px;
-    background-color: #222222;
+    background-color: #110022;
     border:none;
-    color:#FFCCDD;
+    color:#AA99CC;
     overflow:hidden;
     overflow-y:auto;
 
@@ -74,9 +74,9 @@ canvas {
     max-height:100%;
     width:0px;
     height: 0px;
-    background-color: #222222;
+    background-color: #332244;
     border:none;
-    color:#FFCCDD;
+    color:#AA99CC;
     overflow:hidden;
     overflow-y:auto;
 
