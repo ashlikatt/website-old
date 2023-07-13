@@ -1,3 +1,7 @@
+const MIN_SIZE = 5;
+const MAX_SIZE = 100;
+const MAX_COMMAND_LENGTH = 32500;
+
 // When the page loads...
 addEventListener('load', function() {
 
@@ -26,16 +30,16 @@ function inputChanged() {
         const quality = parseInt(document.getElementById('inputrange').value) - 1;
     
         // Validate input
-        if (!(file instanceof File)) throw new Error("Input file is invalid - invalid data.");
-        if (!file.type.startsWith("image")) throw new Error("Input file is invalid - not an image.");
-        if (quality < 0 || quality > 99) throw new Error("Input quality is invalid - out of range.");
+        if (!(file instanceof File)) throw new Error("Input file is invalid - Invalid data.");
+        if (!file.type.startsWith("image")) throw new Error("Input file is invalid - Not an image.");
+        if (quality < 0 || quality > 99) throw new Error("Input quality is invalid - Out of range.");
 
         inputImage = URL.createObjectURL(file);
         createImageBitmap(file).then(bitmap => {
             // Figure out size
-            const scale = Math.min(100 / bitmap.width, 100 / bitmap.height)
-            const targetWidth = interpInt(5, bitmap.width * scale, quality/100);
-            const targetHeight = interpInt(5, bitmap.height * scale, quality/100);
+            const scale = Math.min(MAX_SIZE / bitmap.width, MAX_SIZE / bitmap.height)
+            const targetWidth = interpInt(MIN_SIZE, bitmap.width * scale, quality/100);
+            const targetHeight = interpInt(MIN_SIZE, bitmap.height * scale, quality/100);
             
             // Create canvas with size
             const canvas = document.createElement("canvas");
@@ -143,7 +147,7 @@ function validate() {
     document.getElementById("recodeButton").classList.remove("disabled");
     const copyButton = document.getElementById("copyButton");
     copyButton.classList.remove("disabled");
-    if (tellraw.length + 31 > 32500) { // Too large for command block
+    if (tellraw.length + 31 > MAX_COMMAND_LENGTH) { // Too large for command block
         copyButton.classList.add("warning");
     } else {
         copyButton.classList.remove("warning");
