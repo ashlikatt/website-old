@@ -147,7 +147,7 @@ function validate() {
     document.getElementById("recodeButton").classList.remove("disabled");
     const copyButton = document.getElementById("copyButton");
     copyButton.classList.remove("disabled");
-    if (tellraw.length + 31 > MAX_COMMAND_LENGTH) { // Too large for command block
+    if (tellraw.length + 19 > MAX_COMMAND_LENGTH) { // Too large for command block
         copyButton.classList.add("warning");
     } else {
         copyButton.classList.remove("warning");
@@ -157,7 +157,7 @@ function validate() {
 function copyButton() {
     if (!valid) return;
     const nbt = "{display:{Lore:" + tellraw + "}}"
-    const command = "/give @p minecraft:stone" + nbt;
+    const command = "/give @p cod" + nbt;
     navigator.clipboard.writeText(command);
 }
 
