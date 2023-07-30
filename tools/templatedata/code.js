@@ -12,7 +12,7 @@ function jsonToDataButton() {
     if (!dataBox || !jsonBox) return; // If text boxes aren't loaded, don't do anything
     
     try {
-        JSON.parse(dataBox.value)
+        JSON.parse(jsonBox.value)
         dataBox.value = compress(jsonBox.value);
     } catch (e) {
         notification("Invalid template data input:\n" + (e+"").substring(25))
