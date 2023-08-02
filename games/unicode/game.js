@@ -135,9 +135,6 @@ function mousePressed() {
     
         const symbolsPerRow = Math.floor((gameWidth - sidebarX - horizontalPadding * 2) / width);
         const visibleRows = Math.floor((gameHeight - verticalPadding * 2) / height);
-    
-        const minRow = Math.max(0,Math.floor(currentSidebarScroll - 1));
-        const maxRow = Math.floor(currentSidebarScroll + visibleRows + 1);
 
         const left = sidebarX + horizontalPadding;
         const top = verticalPadding - (currentSidebarScroll * height);
