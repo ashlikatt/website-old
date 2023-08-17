@@ -55,6 +55,7 @@ p {
     color:#AA99CC;
     overflow:hidden;
     overflow-y:auto;
+    white-space:pre;
 
     font-family:'Courier New', Courier, monospace;
     font-weight:normal;

@@ -100,6 +100,11 @@ class GameSymbol {
         this.id = GameSymbol.currentID++;
         this.x = x;
         this.y = y;
+        this.image = twemoji.parse(this.char, {
+            callback: (icon, options) => {
+                console.log(icon);
+            }
+        })
     }
 
     render() {
