@@ -30,6 +30,30 @@ function dataToJsonButton() {
     }
 }
 
+function recodeButton() {
+    if (!dataBox || !jsonBox) return; // If text boxes aren't loaded, don't do anything
+    
+    const compressed = sanitize(dataBox.value);
+
+    const templateData = JSON.stringify({
+        author: "Kitsli",
+        name: "Cool",
+        version: 1,
+        code: compressed
+    });
+
+    const packet = JSON.stringify({
+        source: "Ashli's Site",
+        type: "nbt",
+        data: `{id:"minecraft:stone",Count:1,tag:{PublicBukkitValues:{"hypercube:codetemplatedata":'${templateData}'}}}`
+    });
+    
+    const ws = new WebSocket("ws://localhost:31371");
+    ws.addEventListener('open', _ => {
+        ws.send(packet);
+    })
+}
+
 const compress = s => btoa(String.fromCharCode.apply(null, [...new Uint16Array(pako.gzip(s))]))
 const decompress = s => pako.inflate(new Uint8Array(atob(s).split('').map(e => e.charCodeAt(0))), {to: 'string'});
 

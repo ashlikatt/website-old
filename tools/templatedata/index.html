@@ -24,12 +24,12 @@
                             <div class="row" style="flex:1">
                                 <h2>JSON</h2>
                             </div>
-                            <div class="row" style="flex:20">
+                            <div class="row pad" style="flex:20">
                                 <textarea id="jsonBox" spellcheck="false">{"blocks":[{"id":"block","block":"event","args":{"items":[]},"action":"Join"},{"id":"block","block":"player_action","args":{"items":[{"item":{"id":"txt","data":{"name":"Hello, World!"}},"slot":0},{"item":{"id":"bl_tag","data":{"option":"Add spaces","tag":"Text Value Merging","action":"SendMessage","block":"player_action"}},"slot":25},{"item":{"id":"bl_tag","data":{"option":"Regular","tag":"Alignment Mode","action":"SendMessage","block":"player_action"}},"slot":26}]},"action":"SendMessage"}]}</textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="column" style="flex:1">
+                    <div class="column pad" style="flex:1">
                         <div class="rows">
                             <div class="row" style="flex:1"></div>
                             <div class="row pad" style="flex:10">
@@ -45,8 +45,11 @@
                             <div class="row" style="flex:1">
                                 <h2>Template Data</h2>
                             </div>
-                            <div class="row" style="flex:20">
+                            <div class="row pad" style="flex:20">
                                 <textarea id="dataBox" spellcheck="false">'{"author":"Nyashli","name":"§e§lEvent §6» §ePlayer Join Game Event","version":1,"code":"H4sIAAAAAAAA/6VRwWoCMRD9lTjnPZSCHnLzVgp7UbGHUmTcDCE4myxJtlhk/70TXXRL8SCeknnz3ps3yQn2HJpDAv15AmdAX2qoxlMDfZPPUmO0whJSprbQvwbBmuyCF9J7cB6G6o5Fx/hDcTey/1tdbmekyPOxzDOYsUAeWxLwjZhDpT5CZDODQYYnDhn0y3nqVL7nXUY7cQjdmHJpjEodNpSkWzgaNnTMaovck6opWueL8LrWmrypKSW0dHedW5TX+QNZVmR7xngNsmRnfStPrepg6IkQi+HPz0zV0vkFs1asTPABAAA="}'</textarea>
+                            </div>
+                            <div class="row pad" style="flex:2">
+                                <button style="width:100%;height:100%;" id="sendRecode" onclick="recodeButton();">Send via Recode</button>
                             </div>
                         </div>
                     </div>
