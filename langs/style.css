@@ -1,8 +1,26 @@
-body, html {
-    width: 100%;
+/*html {
     height: 100%;
     padding:0px 0;
     margin:0px 0;
     resize:none;
     overflow:hidden;
+}
+
+body {
+    width: 90%;
+    height: 90%;
+    padding: 0px 0px;
+    margin: 10px 10px;
+    resize:none;
+    overflow:hidden;
+}*/
+
+html {
+    height:100%;
+    display:flex;
+    flex-direction: column;
+}
+
+body {
+    flex-grow: 1;
 }

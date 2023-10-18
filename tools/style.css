@@ -1,10 +1,11 @@
-body, html {
-    width: 100%;
-    height: 100%;
-    padding:0px 0;
-    margin:0px 0;
-    resize:none;
-    overflow:hidden;
+html {
+    height:100%;
+    display:flex;
+    flex-direction: column;
+}
+
+body {
+    flex-grow: 1;
 }
 
 canvas {
@@ -51,12 +52,12 @@ img {
 }
 
 .warning {
-    background-color:#888855;
-    color:#DDDDAA;
+    background-color:#FFA;
+    color:#200;
 }
 .warning:hover {
-    background-color:#AAAA88;
-    color:#FFFFDD;
+    background-color:#CC7;
+    color:#200;
 }
 
 .alertBox {

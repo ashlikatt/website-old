@@ -1,36 +1,40 @@
 html {
+    background-color: #FAA;
     margin: 0px;
     padding: 0px;
 }
 
 body {
-    background-color: #223;
-    margin: 0px;
-    padding: 0px;
+    background-color: #FCC;
+    border-radius: 12px;
+    margin: 1% 5%;
+    padding: 10px;
 }
 
 
 h1, h2 {
     display:inline;
-    color:#C99;
-    font-family:'Courier New', Courier, monospace;
+    color:#200;
+    font-family:'Verdana';
     font-weight:bold;
     font-size: 40px;
     text-align:left;
     padding-left:1%;
     padding-right:1%;
-    border-bottom-color:#A77;
-    border-bottom-width: 1%;
-    border-bottom-style:solid;
 }
 
 h2 {
     font-size: 25px;
 }
 
+h2::before, h1::before {
+    content: '\00bb  ';
+    color: #DAA;
+}
+
 p {
-    color:#EBB;
-    font-family:'Courier New', Courier, monospace;
+    color:#200;
+    font-family:'Verdana';
     font-weight:bold;
     font-size: 20px;
     text-align:left;
@@ -43,28 +47,41 @@ p {
 }
 
 a {
-    color:#BBE;
+    color:#C00;
     text-decoration: underline;
 }
 
 button {
-    background-color:#446;
-    font-family:'Courier New', Courier, monospace;
-    font-weight:bold;
-    font-size: 25px;
-    color:#99C;
+    background: none;
     border:none;
     padding: 0.75%;
+
+    font-family:'Verdana';
+    font-weight:bold;
+    font-size: 25px;
+    color:#200;
     text-align:center;
     text-decoration: none;
+
+
+    border-bottom-color:#A77;
+    border-bottom-width: 1%;
+    border-bottom-style:solid;
+    
     display:inline-block;
     transition:0.1s;
 }
 button:hover {
     cursor:pointer;
-    background-color:#668;
-    color:#BBE;
+    background-color:#A77;
+    color:#200;
     transition:0.1s;
+}
+
+.fullButton {
+    border-color:#A77;
+    border-width: 1%;
+    border-style:solid;
 }
 
 textarea, input, .input {
@@ -77,18 +94,20 @@ textarea, input, .input {
     box-sizing:border-box;
     width: 100%;
     height: 100%;
-    background-color: #334;
+    background-color: #EBB;
     border:none;
-    color:#EBB;
+    color:#200;
     outline:none;
     overflow-y:auto;
     overflow-x:auto;
-    scrollbar-color: #668 #223;
+    scrollbar-color: #400 #600;
     scrollbar-width:thin;
 
     font-family:'Courier New', Courier, monospace;
     font-weight:normal;
     font-size: 16px;
+
+    border-radius: 12px;
 }
 
 .textoutput {
@@ -104,21 +123,23 @@ textarea, input, .input {
     max-height:100%;
     width:0px;
     height: 0px;
-    background-color: #262636;
+    background-color: #C99;
     border:none;
-    color:#EBB;
+    color:#200;
     overflow:hidden;
     overflow-y:auto;
 
     font-family:'Courier New', Courier, monospace;
     font-weight:normal;
     font-size: 16px;
+
+    border-radius: 12px;
 }
 
 
-::selection { background:#99C; color:#225; }
-::-moz-selection { background:#99C; color:#225; }
-::-webkit-selection { background:#99C; color:#225; }
+::selection { background:#388; color:#FFF; }
+::-moz-selection { background:#388; color:#FFF; }
+::-webkit-selection { background:#388; color:#FFF; }
 
 .rows {
     display:inline-flex;
@@ -151,11 +172,11 @@ textarea, input, .input {
 ::-webkit-scrollbar {
     height:12px;
     width:6px;
-    background: #447;
+    background: #744;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #CCF;
+    background: #FCC;
 }
 
 .disabled {
@@ -165,11 +186,15 @@ textarea, input, .input {
 
 .disabled:hover {
     cursor:not-allowed;
-    background-color:#668;
-    color:#BBE;
+    background:none;
 }
 
 .cornerButton {
     float:right;
     margin-left:10px;
+}
+
+.monospace {
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
 }
