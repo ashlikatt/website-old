@@ -2,6 +2,8 @@ html {
     background-color: #FAA;
     margin: 0px;
     padding: 0px;
+
+    background-image: url("images/backdrop.png")
 }
 
 body {
@@ -9,6 +11,7 @@ body {
     border-radius: 12px;
     margin: 1% 5%;
     padding: 10px;
+    box-shadow: #B88 2px 2px 2px 2px;
 }
 
 
@@ -30,6 +33,14 @@ h2 {
 h2::before, h1::before {
     content: '\00bb  ';
     color: #DAA;
+}
+
+hr {
+    border-color: #EBB;
+    border-top-style: solid;
+    border-top-width: 2px;
+    margin-left:1%;
+    margin-right:1%;
 }
 
 p {
@@ -197,4 +208,8 @@ textarea, input, .input {
 .monospace {
     font-family:'Courier New', Courier, monospace;
     font-weight:normal;
+}
+
+.imagebox {
+    text-align: center;
 }
