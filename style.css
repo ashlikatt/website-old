@@ -62,6 +62,16 @@ a {
     text-decoration: underline;
 }
 
+.externalLink::before {
+    content: "";
+    background-image: url("/images/external_link.png");
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    display:inline-block;
+}
+
 button {
     background: none;
     border:none;
