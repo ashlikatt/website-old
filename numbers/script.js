@@ -5,8 +5,8 @@ addEventListener('load', function() {
     elem = document.getElementById('numbers');
     if (elem) {
         elem.innerHTML = ""
-        for (let i = 0; i < 11111; i++) newNumber();
-        this.setInterval(newNumber, 100)
+        for (let i = 0; i < 2014; i++) newNumber();
+        this.setInterval(newNumber, 10)
     }
 });
 
