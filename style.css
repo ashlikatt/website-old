@@ -1,5 +1,8 @@
+
+
 html {
-    background-color: #FAA;
+    scrollbar-color: #B00 #500;
+    background-color: #222;
     margin: 0px;
     padding: 0px;
 
@@ -7,17 +10,17 @@ html {
 }
 
 body {
-    background-color: #FCC;
-    border-radius: 12px;
+    background-color: #333;
+    border-radius: 4px;
     margin: 2% 5%;
     padding: 10px;
-    box-shadow: 1px 1px 5px 5px #B77;
+    box-shadow: 1px 1px 5px 5px #222;
 }
 
 
 h1, h2 {
     display:inline;
-    color:#200;
+    color:#F88;
     font-family:'Verdana', Verdana, sans-serif;
     font-weight:bold;
     font-size: 40px;
@@ -32,11 +35,11 @@ h2 {
 
 h2::before, h1::before {
     content: '\00bb  ';
-    color: #DAA;
+    color: #777;
 }
 
 hr {
-    border-color: #EBB;
+    border-color: #000;
     border-top-style: solid;
     border-top-width: 2px;
     margin-left:1%;
@@ -44,13 +47,13 @@ hr {
 }
 
 p {
-    color:#200;
+    color:#999;
     font-family: 'Verdana', Verdana, sans-serif;
     font-weight:bold;
     font-size: 20px;
     text-align:left;
     padding:1%;
-    border-left-color:#C99;
+    border-left-color:#444;
     border-left-width: 1%;
     border-left-style: solid;
     margin-left: 1%;
@@ -58,7 +61,7 @@ p {
 }
 
 a {
-    color:#C00;
+    color:#F55;
     text-decoration: underline;
 }
 
@@ -80,12 +83,12 @@ button {
     font-family:'Verdana', Verdana, sans-serif;
     font-weight:bold;
     font-size: 25px;
-    color:#200;
+    color:#F88;
     text-align:center;
     text-decoration: none;
 
 
-    border-bottom-color:#A77;
+    border-bottom-color:#933;
     border-bottom-width: 1%;
     border-bottom-style:solid;
     
@@ -94,13 +97,13 @@ button {
 }
 button:hover {
     cursor:pointer;
-    background-color:#A77;
-    color:#200;
+    background-color:#933;
+    color:#F88;
     transition:0.1s;
 }
 
 .fullButton {
-    border-color:#A77;
+    border-color:#933;
     border-width: 1%;
     border-style:solid;
 }
@@ -115,20 +118,18 @@ textarea, input, .input {
     box-sizing:border-box;
     width: 100%;
     height: 100%;
-    background-color: #EBB;
+    background-color: #111;
     border:none;
-    color:#200;
+    color:#DDD;
     outline:none;
     overflow-y:auto;
     overflow-x:auto;
-    scrollbar-color: #400 #600;
-    scrollbar-width:thin;
 
     font-family:'Courier New', Courier, monospace;
     font-weight:normal;
     font-size: 16px;
 
-    border-radius: 12px;
+    border-radius: 4px;
 }
 
 .textoutput {
@@ -144,9 +145,9 @@ textarea, input, .input {
     max-height:100%;
     width:0px;
     height: 0px;
-    background-color: #C99;
+    background-color: #000;
     border:none;
-    color:#200;
+    color:#DDD;
     overflow:hidden;
     overflow-y:auto;
 
@@ -154,7 +155,7 @@ textarea, input, .input {
     font-weight:normal;
     font-size: 16px;
 
-    border-radius: 12px;
+    border-radius: 4px;
 }
 
 
@@ -193,11 +194,14 @@ textarea, input, .input {
 ::-webkit-scrollbar {
     height:12px;
     width:6px;
-    background: #744;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #500;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #FCC;
+    background-color: #B00;
 }
 
 .disabled {

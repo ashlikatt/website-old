@@ -52,12 +52,10 @@ img {
 }
 
 .warning {
-    background-color:#FFA;
-    color:#200;
+    background-color:#440;
 }
 .warning:hover {
-    background-color:#CC7;
-    color:#200;
+    background-color:#550;
 }
 
 .alertBox {
