@@ -83,7 +83,7 @@ img {
 }
 
 .alertContainer {
-  display: flex;
+  display: flexbox;
   justify-content: flex-end;
   flex-direction: column;
   float:left;
