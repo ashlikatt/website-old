@@ -38,11 +38,11 @@ const THIN = [
     new SkinSegment( 4, 20,  4, 12,    4, 20,  4, 12), // Right Leg
 
     // Overlay
-    new SkinSegment(20, 36,  8, 12,    4,  8,  8, 12, 0.25), // Body
     new SkinSegment(52, 52,  3, 12,   12,  8,  3, 12, 0.25), // Left Arm
     new SkinSegment(44, 36,  3, 12,    1,  8,  3, 12, 0.25), // Right Arm
     new SkinSegment( 4, 52,  4, 12,    8, 20,  4, 12, 0.25), // Left Leg
     new SkinSegment( 4, 36,  4, 12,    4, 20,  4, 12, 0.25), // Right Leg
+    new SkinSegment(20, 36,  8, 12,    4,  8,  8, 12, 0.25), // Body (Priority)
     new SkinSegment(40,  8,  8,  8,    4,  0,  8,  8,  0.5), // Head (Priority)
 ];
 
@@ -56,11 +56,11 @@ const WIDE = [
     new SkinSegment( 4, 20,  4, 12,    4, 20,  4, 12),  // Right Leg
 
     // Overlay
-    new SkinSegment(20, 36,  8, 12,    4,  8,  8, 12, 0.25), // Body
     new SkinSegment(52, 52,  4, 12,   12,  8,  4, 12, 0.25), // Left Arm
     new SkinSegment(44, 36,  4, 12,    0,  8,  4, 12, 0.25), // Right Arm
     new SkinSegment( 4, 52,  4, 12,    8, 20,  4, 12, 0.25), // Left Leg
     new SkinSegment( 4, 36,  4, 12,    4, 20,  4, 12, 0.25), // Right Leg
+    new SkinSegment(20, 36,  8, 12,    4,  8,  8, 12, 0.25), // Body (Priority)
     new SkinSegment(40,  8,  8,  8,    4,  0,  8,  8,  0.5), // Head (Priority)
 ];
 
