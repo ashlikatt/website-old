@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="https://www.ashli.dev/caticon.png?v=3">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="../style.css">
+        <script src="generator.js"></script>
+        <title>Minecraft Skin Icon Generator - Ashli's Site</title>
+        <meta name="author" content="Ashli Katt">
+        <meta content="Ashli's Site" property="og:title" />
+        <meta content="Tool to create icons from Minecraft skins" property="og:description" />
+        <meta content="https://ashli.dev/tools/skinmoji" property="og:url" />
+        <meta content="https://ashli.dev/caticon.png" property="og:image" />
+        <meta content="#FF8888" data-react-helmet="true" name="theme-color" />
+    </head>
+    <body>
+        <div class="rows">
+            <noscript class="row pad noscriptWarning">
+                JavaScript is disabled. This page may not work correctly.
+            </noscript>
+            <div class="row pad" style="flex:1">
+                <h1>Minecraft Skin Icon Generator</h1>
+                <a rel="canonical" href="/tools"><button class="cornerButton">Tools</button></a>
+            </div>
+            <div class="row" style="flex:10">
+                <div class="columns">
+                    <div class="column">
+                        <div class="rows">
+                            <div class="row pad">
+                                <input id="inputfile" accept="image/*" type="file"></input>
+                            </div>
+                            <div class="row pad">
+                                <p style="overflow:hidden" class="input">Skin Type:<br>
+                                    <input type="radio" id="wide_skin" name="skin_type" value="Wide" checked="true">Wide</input><br>
+                                    <input type="radio" id="slim_skin" name="skin_type" value="Slim">Slim</input>
+                                </p>
+                            </div>
+                            <div class="row pad">
+                                <button style="width:100%;height:100%;" id="generateButton" onclick="generateButton();">Generate</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column pad">
+                        <p id="pixelDisplay" class="textoutput" style="overflow:hidden"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
