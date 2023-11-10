@@ -108,7 +108,7 @@ button:hover {
     border-style:solid;
 }
 
-textarea, input[type="file"], .input {
+textarea, input[type="file"], input[type="range"], .input {
     resize:none;
     padding: 10px 5px;
     margin: 0px 0px;
