@@ -4,6 +4,18 @@ document.oncontextmenu = e => {
     return false;
 };
 
+const FADE_OUT = [
+    {
+        opacity: '100%',
+        transform: 'translateY(0px)',
+    },
+    {
+        opacity: '0%',
+        transform: 'translateY(50px)',
+        display: 'none',
+    }
+]
+
 class UserTask {
     constructor(title, description, daily, complete) {
         this.id = "task" + localID++;
@@ -20,6 +32,7 @@ class UserTask {
         container.classList.add("task")
         const titleElem = document.createElement("h2")
         titleElem.classList.add("noselect")
+        if (this.daily) titleElem.classList.add("daily")
         titleElem.textContent = this.title;
         container.appendChild(titleElem);
         if (this.description !== null && this.description !== undefined && this.description !== "") {
@@ -69,10 +82,20 @@ class UserTask {
     }
 }
 
+
+
+
+
+
+
+
+//////////////////// MAIN //////////////////// 
+
 var fading = false;
 var taskList = []
 var localID = 0;
 var lastUpdateTimestamp = 0;
+var resetUTCTime = 0;
 
 addEventListener('load', function() {
     loadData();
@@ -80,7 +103,17 @@ addEventListener('load', function() {
     updateDailyTasks();
     updateDisplay();
     this.setInterval(updateDailyTasks, 1000);
+
+    document.getElementById('settingUTCOffset').onchange = updateSettingDisplay
 });
+
+
+
+
+
+
+
+//////////////////// TASK CREATION //////////////////// 
 
 function createNewTask() {
     document.getElementById('newtaskpopup').style.display='block';
@@ -90,17 +123,7 @@ function stopCreateNewTask() {
     if (fading) return;
     fading = true;
     const elem = document.getElementById('newtaskpopup');
-    const anim = elem.animate([
-        {
-            opacity: '100%',
-            transform: 'translateY(0px)',
-        },
-        {
-            opacity: '0%',
-            transform: 'translateY(50px)',
-            display: 'none',
-        }
-    ], 300);
+    const anim = elem.animate(FADE_OUT, 300);
     anim.onfinish = _ => {
         elem.style.display='none';
         fading = false;
@@ -150,9 +173,19 @@ function warning(elem) {
     ], 400);
 }
 
+
+
+
+
+
+
+
+
+//////////////////// DATA & DISPLAY //////////////////// 
 function loadData() {
     const savedVersion = localStorage.getItem("version");
     lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck")
+    resetUTCTime = localStorage.getItem("utcOffset") || 0
 
     if (savedVersion !== null && savedVersion !== undefined) {
         // Not new
@@ -165,6 +198,7 @@ function saveData() {
     localStorage.setItem("data", JSON.stringify(taskList))
     localStorage.setItem("version", 1)
     localStorage.setItem("lasttimestampcheck", lastUpdateTimestamp)
+    localStorage.setItem("utcOffset", resetUTCTime)
 }
 
 function updateDisplay() {
@@ -200,6 +234,15 @@ function updateDisplay() {
     }
 }
 
+
+
+
+
+
+
+
+//////////////////// EDITING TASKS //////////////////// 
+
 var editingTask = undefined;
 
 function beginEditTask(task) {
@@ -215,17 +258,7 @@ function stopEditTask() {
     if (fading) return;
     fading = true;
     const elem = document.getElementById('edittaskpopup');
-    const anim = elem.animate([
-        {
-            opacity: '100%',
-            transform: 'translateY(0px)',
-        },
-        {
-            opacity: '0%',
-            transform: 'translateY(50px)',
-            display: 'none',
-        }
-    ], 300);
+    const anim = elem.animate(FADE_OUT, 300);
     anim.onfinish = _ => {
         elem.style.display='none';
         fading = false;
@@ -278,8 +311,16 @@ function deleteTask() {
     stopEditTask();
 }
 
+
+
+
+
+
+//////////////////// DAILY RESET //////////////////// 
+
 function updateDailyTasks() {
-    if (timestampToDay(lastUpdateTimestamp) !== timestampToDay(Date.now())) {
+    const offset = resetUTCTime*1000*60*60;
+    if (timestampToDay(lastUpdateTimestamp + offset) !== timestampToDay(Date.now() + offset)) {
         for (let t of taskList) {
             if (t.complete && t.daily) {
                 t.enable();
@@ -293,4 +334,56 @@ function updateDailyTasks() {
 
 function timestampToDay(x) {
     return Math.floor(x/1000/60/60/24);
+}
+
+
+
+
+
+
+
+
+//////////////////// SETTINGS //////////////////// 
+
+function settingsMenu() {
+    document.getElementById('settingUTCOffset').value = resetUTCTime;
+
+    updateSettingDisplay();
+
+    document.getElementById('settingsbox').style.display='block';
+}
+
+function closeSettings() {
+    if (fading) return;
+    fading = true;
+
+    const elem = document.getElementById('settingsbox');
+    const anim = elem.animate(FADE_OUT, 300);
+    anim.onfinish = _ => {
+        elem.style.display='none';
+        fading = false;
+    }
+}
+
+function updateSettings() {
+    if (fading) return;
+    resetUTCTime = document.getElementById('settingUTCOffset').value;
+
+    saveData();
+
+    fading = false;
+    closeSettings();
+}
+
+function updateSettingDisplay() {
+    const val = document.getElementById('settingUTCOffset').value;
+    if (val == 0) {
+        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC)"
+    } else if (val > 0 && val <= 12) {
+        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC+" + val + ")"
+    } else if (val < 0 && val >= -12) {
+        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC" + val + ")"
+    } else {
+        document.getElementById('timezonedisplay').innerHTML = "Time Zone (err)"
+    }
 }
