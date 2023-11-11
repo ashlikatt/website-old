@@ -1,0 +1,304 @@
+html {
+    background-color: #000;
+    color: #FFF;
+    text-align: center;
+    font-family: 'Verdana', Verdana, sans-serif;
+    font-weight:bold;
+    font-size: 20px;
+}
+
+html, body, #body {
+    margin: 0px;
+    padding: 0px;
+}
+
+h2 {
+    font-size: 25px;
+    margin: 20px;
+    padding: 0px;
+}
+
+p {
+    font-size: 15px;
+    margin: 10px;
+    padding: 0px;
+    color: #BBB;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0%;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 100%;
+        transform: translateY(0px);
+    }
+}
+
+.fadein {
+    margin: 30px;
+
+    animation: fadein;
+    animation-duration: 1s;
+    opacity: 0%;
+    animation-fill-mode: both;
+}
+
+#newtask {
+    position:absolute;
+    right:20px;
+    top:20px;
+    padding: 20px;
+    font-size: 15px;
+
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    opacity: 0%;
+    animation-fill-mode: both;
+
+    width: max-content;
+
+    background-color: #333;
+    color: #666;
+    border-radius: 10px;
+    transition:0.1s;
+}
+
+#newtask:hover {
+    cursor:pointer;
+    background-color: #555;
+    color: #888;
+    transition:0.1s;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+.vertcenter {
+    margin:auto;
+    padding: 25%;
+}
+
+#emptytasklist {
+    display:none;
+    margin: 30px auto;
+    padding: 20px;
+    font-size: 20px;
+
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    opacity: 0%;
+    animation-fill-mode: both;
+
+    width: max-content;
+
+    color: #333;
+    border-radius: 10px;
+}
+
+#tasklist {
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    opacity: 0%;
+    animation-fill-mode: both;
+}
+
+#newtaskpopup, #edittaskpopup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+
+    background-color: #00000099;
+    border-color: #00000099;
+    border-width: 50px;
+    animation-fill-mode: both;
+}
+
+.popup {
+    display:block;
+    position: absolute;
+    left:10%;
+    top:10%;
+    width:80%;
+    height:80%;
+    
+    background-color: #777;
+    border-radius: 10px;
+    color: #FFF;
+
+    animation: fadein;
+    animation-duration: 0.5s;
+
+    overflow-y: auto;
+}
+
+.popup button {
+    display:block;
+    border:none;
+    width: 25%;
+    background-color: #AAA;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px;
+    text-align:center;
+    font-family: 'Verdana', Verdana, sans-serif;
+    font-size: 20px;
+
+    cursor:pointer;
+    transition: 0.1s;
+}
+
+.rightbutton {
+    position:absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.leftbutton {
+    position:absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.bottombutton {
+    position:absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+.popup button:hover {
+    background-color: #CCC;
+}
+
+.popup .section {
+    display:block;
+    padding:10px;
+    margin:30px;
+    background-color: #444;
+    border-radius: 10px;
+    color: #FFF;
+}
+
+input[type="text"] {
+    border:none;
+    background-color: #CCC;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 50%;
+    text-align:center;
+    font-family: 'Verdana', Verdana, sans-serif;
+    font-size: 20px;
+    outline:none;
+    transition: 0.1s;
+} 
+input[type="text"]:focus {
+    background-color: #FFF;
+    transition: 0.1s;
+}
+
+/* The container */
+.container {
+    margin: 10px auto;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    width: max-content;
+    text-align:center;
+    color: #000;
+    padding:10px;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio_background {
+    background-color:#AAA;
+    border-radius: 10px;
+    width: max-content;
+    padding:10px;
+    transition: 0.1s;
+}
+
+.container:hover input ~ .radio_background {
+    background-color:#CCC;
+    transition: 0.1s;
+}
+
+.container input:checked ~ .radio_background {
+    background-color:#FFF;
+    transition: 0.1s;
+}
+
+.task {
+    display:block;
+    position:absolute;
+    padding:10px;
+    margin: 10px auto;
+    width: max-content;
+    background-color: #444;
+    border-radius: 10px;
+    color: #FFF;
+    transition: 0.5s;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.task:hover {
+    background-color: #666;
+    cursor:pointer;
+}
+
+.complete {
+    background-color: #111;
+    color: #444;
+}
+
+.complete:hover {
+    background-color: #141414;
+    color: #444;
+    cursor:default;
+    z-index: 2;
+}
+
+.complete h2 {
+    color: #444;
+    /* text-decoration: line-through #555 solid 2px; */
+}
+
+.complete p {
+    color: #444;
+    /* text-decoration: line-through #555 solid 2px; */
+    
+}
+
+#warning {
+    position:fixed;
+    left:10px;
+    bottom:10px;
+    text-align: left;
+    color:#444;
+    font-size: 10px;
+}
