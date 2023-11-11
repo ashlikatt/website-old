@@ -292,5 +292,5 @@ function updateDailyTasks() {
 }
 
 function timestampToDay(x) {
-    return Math.floor(x/1000/60);
+    return Math.floor(x/1000/60/60/24);
 }
