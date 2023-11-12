@@ -1,0 +1,130 @@
+#emptytasklist {
+    display:none;
+    margin: 30px auto;
+    padding: 20px;
+    font-size: 20px;
+
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    opacity: 0%;
+    animation-fill-mode: both;
+
+    width: max-content;
+
+    color: #333;
+    border-radius: 10px;
+}
+
+#tasklist {
+    display:block;
+    position:relative;
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    opacity: 0%;
+    animation-fill-mode: both;
+}
+
+.task {
+    display:block;
+    position:absolute;
+    padding:10px;
+    margin: 10px auto;
+    width: max-content;
+    max-width: 60ch;
+    text-wrap:wrap;
+    word-break:break-all;
+    border-left: 8px solid hsl(0 0% 60%);
+    background-color: #444;
+    border-radius: 10px;
+    color: #FFF;
+    transition: 0.5s;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.task:hover {
+    background-color: #666;
+    cursor:pointer;
+}
+
+
+
+.blue_task {
+    border-left: 8px solid hsl(190 30% 60%);
+    background-color:hsl(190 25% 40%);
+}
+.green_task {
+    border-left: 8px solid hsl(120 30% 60%);
+    background-color:hsl(120 25% 40%);
+}
+.pink_task {
+    border-left: 8px solid hsl(0 30% 60%);
+    background-color:hsl(0 25% 40%);
+}
+.purple_task {
+    border-left: 8px solid hsl(260 30% 60%);
+    background-color: hsl(260 25% 40%);
+}
+
+.blue_task:hover {
+    background-color:hsl(190 25% 50%);
+}
+.green_task:hover {
+    background-color:hsl(120 25% 50%);
+}
+.pink_task:hover {
+    background-color:hsl(0 25% 50%);
+}
+.purple_task:hover {
+    background-color: hsl(260 25% 50%);
+}
+
+
+
+.complete {
+    background-color: #111;
+    color: #444;
+    border-left: 8px solid hsl(0 0% 10%);
+}
+
+.complete:hover {
+    background-color: #141414;
+    color: #444;
+    cursor:default;
+    z-index: 2;
+}
+
+
+.blue_task.complete {
+    border-left: 8px solid hsl(190 30% 10%);
+    background-color:hsl(190 25% 5%);
+}
+.green_task.complete {
+    border-left: 8px solid hsl(120 30% 10%);
+    background-color:hsl(120 25% 5%);
+}
+.pink_task.complete {
+    border-left: 8px solid hsl(0 30% 10%);
+    background-color:hsl(0 25% 5%);
+}
+.purple_task.complete {
+    border-left: 8px solid hsl(260 30% 10%);
+    background-color: hsl(260 25% 5%);
+}
+
+
+.complete h2 {
+    color: #444;
+    /* text-decoration: line-through #555 solid 2px; */
+}
+
+.complete p {
+    color: #444;
+    /* text-decoration: line-through #555 solid 2px; */
+}
+
+.daily::after {
+    content: " ⭮";
+    color: #FFFFFF22;
+}

@@ -1,0 +1,237 @@
+#newtask, #settings {
+    position:fixed;
+    right:20px;
+    top:20px;
+    padding: 20px;
+    font-size: 15px;
+
+    animation: fadein;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    opacity: 0%;
+    animation-fill-mode: both;
+
+    width: fit-content;
+    height:fit-content;
+
+    background-color: #555;
+    color: #AAA;
+    border-radius: 10px;
+    transition:0.1s;
+}
+
+#newtask:hover, #settings:hover {
+    cursor:pointer;
+    background-color: #777;
+    color: #CCC;
+    transition:0.1s;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+
+    background-color: #00000099;
+    border-color: #00000099;
+    border-width: 50px;
+    animation-fill-mode: both;
+}
+
+.popup {
+    display:block;
+    position: absolute;
+    left:10%;
+    top:10%;
+    width:80%;
+    height:80%;
+    
+    background-color: #777;
+    border-radius: 10px;
+    color: #FFF;
+
+    animation: fadein;
+    animation-duration: 0.5s;
+
+    overflow-y: auto;
+}
+
+.popup button {
+    display:block;
+    border:none;
+    width: 25%;
+    background-color: #AAA;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px;
+    text-align:center;
+    font-family: 'Verdana', Verdana, sans-serif;
+    font-size: 20px;
+
+    cursor:pointer;
+    transition: 0.1s;
+}
+
+.popup button:hover {
+    background-color: #CCC;
+}
+
+.popup .bottombutton {
+    display:block;
+    padding:10px;
+    margin:30px auto;
+}
+
+.rightbutton {
+    position:absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.leftbutton {
+    position:absolute;
+    left: 20px;
+    top: 20px;
+}
+
+
+.popup input[type="range"] {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 50%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: #AAA; /* Grey background */
+  outline: none; /* Remove outline */
+}
+
+.popup input[type="range"]::-webkit-range-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: #FFF; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    outline:none;
+    border:none;
+    border-radius: 50%;
+}
+
+.popup input[type="range"]::-moz-range-thumb {
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: #FFF; /* Green background */
+    outline:none;
+    border:none;
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%;
+}
+  
+
+
+.popup .section {
+    display:block;
+    padding:10px;
+    margin:30px;
+    background-color: #444;
+    border-radius: 10px;
+    color: #FFF;
+}
+
+input[type="text"] {
+    border:none;
+    background-color: #CCC;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 50%;
+    text-align:center;
+    font-family: 'Verdana', Verdana, sans-serif;
+    font-size: 20px;
+    outline:none;
+    transition: 0.1s;
+} 
+input[type="text"]:focus {
+    background-color: #FFF;
+    transition: 0.1s;
+}
+
+/* The container */
+.container {
+    margin: 10px auto;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: max-content;
+    text-align:center;
+    color: #000;
+    padding:10px;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio_background {
+    background-color:#AAA;
+    border-radius: 10px;
+    width: max-content;
+    padding:10px;
+    transition: 0.1s;
+}
+
+.container:hover input ~ .radio_background {
+    background-color:#CCC;
+    transition: 0.1s;
+}
+
+.container input:checked ~ .radio_background {
+    background-color:#FFF;
+    transition: 0.1s;
+}
+
+
+
+.color-container {
+    margin: 10px auto;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: auto;
+    text-align:center;
+    color: #000;
+    padding:5px;
+}
+
+.color-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.color_background {
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    width: max-content;
+    padding: 20px;
+    transition: 0.1s;
+}
+
+
+.color-container input:checked ~ .color_background {
+    border-color: #FFF;
+    transition: 0.1s;
+}
+
+.purple_button { background-color: hsl(260 50% 80%); border-color:hsl(260 50% 80%) }
+.green_button { background-color:hsl(120 50% 80%); border-color:hsl(120 50% 80%) } 
+.pink_button { background-color:hsl(0 50% 80%); border-color:hsl(0 50% 80%) }
+.blue_button { background-color:hsl(190 50% 80%); border-color:hsl(190 50% 80%) }
+.white_button { background-color:hsl(0 0% 80%); border-color:hsl(0 0% 80%) }

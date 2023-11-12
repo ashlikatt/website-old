@@ -4,6 +4,8 @@
         <link rel="icon" href="1f4cb.svg">
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="menus.css">
+        <link rel="stylesheet" href="tasks.css">
         <script src="code.js"></script>
         <title>Your To-Do List - Ashli's Site</title>
         <meta name="author" content="Ashli Katt">
@@ -63,6 +65,36 @@
                         <span class="radio_background">Once</span>
                     </label>
                 </div>
+
+                <div class="section">
+                    <h2>Color Group</h2>
+
+                    <label class="color-container noselect">
+                        <input id="inputColorPurple" class="radio" type="radio" name="color" value="4">
+                        <div class="color_background purple_button"></div>
+                    </label>
+
+                    <label class="color-container noselect">
+                        <input id="inputColorPink" class="radio" type="radio" name="color" value="3">
+                        <div class="color_background pink_button"></div>
+                    </label>
+
+                    <label class="color-container noselect">
+                        <input id="inputColorGreen" class="radio" type="radio" name="color" value="2">
+                        <div class="color_background green_button"></div>
+                    </label>
+
+                    <label class="color-container noselect">
+                        <input id="inputColorBlue" class="radio" type="radio" name="color" value="1">
+                        <div class="color_background blue_button"></div>
+                    </label>
+
+
+                    <label class="color-container noselect">
+                        <input id="inputColorWhite" class="defaultRadio" type="radio" checked="checked" name="color" value="0">
+                        <div class="color_background white_button"></div>
+                    </label>
+                </div>
                 
 
             </div>
@@ -74,7 +106,6 @@
 
                 <button class="leftbutton" onclick="stopEditTask();">Cancel</button>
                 <button class="rightbutton" onclick="attemptEditTask();">Update</button>
-                <button class="bottombutton" onclick="deleteTask();">Delete</button>
 
                 <div class="section">
                     <h2>Task Information</h2>
@@ -95,8 +126,38 @@
                         <span class="radio_background">Once</span>
                     </label>
                 </div>
-                
 
+                <div class="section">
+                    <h2>Color Group</h2>
+
+                    <label class="color-container noselect">
+                        <input id="editColorPurple" class="radio" type="radio" name="editcolor" value="4">
+                        <div class="color_background purple_button"></div>
+                    </label>
+
+                    <label class="color-container noselect">
+                        <input id="editColorPink" class="radio" type="radio" name="editcolor" value="3">
+                        <div class="color_background pink_button"></div>
+                    </label>
+                    
+                    <label class="color-container noselect">
+                        <input id="editColorGreen" class="radio" type="radio" name="editcolor" value="2">
+                        <div class="color_background green_button"></div>
+                    </label>
+
+                    <label class="color-container noselect">
+                        <input id="editColorBlue" class="radio" type="radio" name="editcolor" value="1">
+                        <div class="color_background blue_button"></div>
+                    </label>
+
+
+                    <label class="color-container noselect">
+                        <input id="editColorWhite" class="defaultRadio" type="radio" checked="checked" name="editcolor" value="0">
+                        <div class="color_background white_button"></div>
+                    </label>
+                </div>
+
+                <button class="bottombutton" onclick="deleteTask();">Delete</button>
             </div>
         </div>
 

@@ -16,20 +16,24 @@ const FADE_OUT = [
     }
 ]
 
+const COLOR_GROUPS = ["white_task", "blue_task", "green_task", "pink_task", "purple_task"]
+
 class UserTask {
-    constructor(title, description, daily, complete) {
-        this.id = "task" + localID++;
+    constructor(title, description, daily, complete, color_group = 0) {
+        this.element = undefined;
         this.title = title; // String
         this.description = description; // String or Null
         this.daily = daily; // True or False 
         this.complete = complete; // False or timestamp completed
+        this.color_group = color_group;
 
         this.createElement();        
     }
 
     createElement() {
         const container = document.createElement("div")
-        container.classList.add("task")
+        this.element = container;
+        container.classList.add("task", COLOR_GROUPS[this.color_group])
         const titleElem = document.createElement("h2")
         titleElem.classList.add("noselect")
         if (this.daily) titleElem.classList.add("daily")
@@ -73,12 +77,16 @@ class UserTask {
 
     disable() {
         this.complete = Date.now();
-        document.getElementById(this.id).classList.add("complete")
+        this.element.classList.add("complete")
     }
 
     enable() {
         this.complete = false;
-        document.getElementById(this.id).classList.remove("complete")
+        this.element.classList.remove("complete")
+    }
+
+    get sortScore() {
+        return this.color_group + (this.complete === false ? 50 : 0)
     }
 }
 
@@ -93,7 +101,6 @@ class UserTask {
 
 var fading = false;
 var taskList = []
-var localID = 0;
 var lastUpdateTimestamp = 0;
 var resetUTCTime = 0;
 
@@ -150,6 +157,7 @@ function attemptFinalizeTask() {
     const inputDaily = document.getElementById('inputDaily')?.checked
     const inputTitle = document.getElementById('inputTitle')?.value
     const inputDescription = document.getElementById('inputDescription')?.value
+    const colorID = parseInt(document.querySelector('input[name="color"]:checked').value);
 
     if (!inputTitle || inputTitle === "") {
         warning(document.getElementById('createTaskButton'));
@@ -157,7 +165,7 @@ function attemptFinalizeTask() {
         return;
     }
     
-    const task = new UserTask(inputTitle, inputDescription, inputOnce === false, false);
+    const task = new UserTask(inputTitle, inputDescription, inputOnce === false, false, colorID);
     taskList.push(task);
     updateDisplay();
     saveData();
@@ -190,12 +198,14 @@ function loadData() {
     if (savedVersion !== null && savedVersion !== undefined) {
         // Not new
         let list = JSON.parse(localStorage.getItem("data"))
-        taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete))
+        taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete, x.color_group || 0))
     }
 }
 
 function saveData() {
-    localStorage.setItem("data", JSON.stringify(taskList))
+    localStorage.setItem("data", JSON.stringify(taskList, function(key, value) {
+        if (key !== 'id') return value;
+    }))
     localStorage.setItem("version", 1)
     localStorage.setItem("lasttimestampcheck", lastUpdateTimestamp)
     localStorage.setItem("utcOffset", resetUTCTime)
@@ -215,22 +225,17 @@ function updateDisplay() {
         taskListDiv.style.display = 'block';
         emptyTaskListDiv.style.display = 'none';
 
-        let currentY = document.getElementsByTagName('html')[0].getBoundingClientRect().bottom - 100;
 
+        let currentY = document.getElementsByTagName('html')[0].getBoundingClientRect().top + document.documentElement.scrollTop;
         
-        for (let task of taskList.filter(x => !x.complete)) {
-            const elem = document.getElementById(task.id);
+        for (let task of taskList.sort((a, b) => b.sortScore - a.sortScore)) {
+            const elem = task.element;
             elem.style.top = currentY + "px";
             const height = elem.getBoundingClientRect().bottom - elem.getBoundingClientRect().top;
             currentY += height + 10;
         }
 
-        for (let task of taskList.filter(x => x.complete)) {
-            const elem = document.getElementById(task.id);
-            elem.style.top = currentY + "px";
-            const height = elem.getBoundingClientRect().bottom - elem.getBoundingClientRect().top;
-            currentY += height + 10;
-        }
+        document.getElementById('tasklist').style.height = currentY + "px"
     }
 }
 
@@ -283,7 +288,7 @@ function attemptEditTask() {
     editingTask.description = inputDescription;
     editingTask.daily = inputOnce === false;
 
-    document.getElementById(editingTask.id).remove();
+    editingTask.element.remove();
     editingTask.createElement();
     updateDisplay();
     saveData();
@@ -297,12 +302,12 @@ function deleteTask() {
     if (fading) return;
 
     for (let i = 0; i < taskList.length; i++) {
-        if (taskList[i].id === editingTask.id) {
+        if (taskList[i].element === editingTask.element) {
             taskList.splice(i, 1);
             break;
         }
     }
-    document.getElementById(editingTask.id).remove();
+    editingTask.element.remove();
     updateDisplay();
     saveData();
 
