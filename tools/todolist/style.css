@@ -171,6 +171,38 @@ p {
     transition: 0.1s;
 }
 
+.popup input[type="range"] {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 50%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: #AAA; /* Grey background */
+  outline: none; /* Remove outline */
+}
+
+.popup input[type="range"]::-webkit-range-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: #FFF; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    outline:none;
+    border:none;
+    border-radius: 50%;
+}
+
+.popup input[type="range"]::-moz-range-thumb {
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: #FFF; /* Green background */
+    outline:none;
+    border:none;
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%;
+}
+  
+
 .rightbutton {
     position:absolute;
     right: 20px;
