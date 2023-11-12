@@ -193,15 +193,14 @@ function warning(elem) {
 
 //////////////////// DATA & DISPLAY ////////////////////
 function loadData() {
-    const savedVersion = localStorage.getItem("version");
-    lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck");
+    const savedVersion = localStorage.getItem("version") || 0;
+    lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck") || 0;
     resetUTCTime = localStorage.getItem("utcOffset");
     if (resetUTCTime == null) {
         resetUTCTime = new Date().getTimezoneOffset();
-        saveData();
     }
 
-    if (savedVersion == null) {
+    if (savedVersion != 0) {
         // Not new
         let list = JSON.parse(localStorage.getItem("data"));
         taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete, x.colorGroup ?? 0));
