@@ -113,6 +113,9 @@ addEventListener('load', function() {
     document.getElementById('settingUTCOffset').oninput = updateSettingDisplay;
 });
 
+addEventListener('unload', function() {
+    saveData();
+})
 
 
 
@@ -207,7 +210,7 @@ function loadData() {
 
 function saveData() {
     localStorage.setItem("data", JSON.stringify(taskList, function(key, value) {
-        if (key !== 'id') return value;
+        if (key !== 'element') return value;
     }))
     localStorage.setItem("version", 1);
     localStorage.setItem("lasttimestampcheck", lastUpdateTimestamp);
