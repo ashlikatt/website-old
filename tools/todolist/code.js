@@ -39,7 +39,7 @@ class UserTask {
         if (this.daily) titleElem.classList.add("daily");
         titleElem.textContent = this.title;
         container.appendChild(titleElem);
-        if (!this.description) {
+        if (this.description) {
             const desc = document.createElement('p');
             desc.classList.add("noselect");
             desc.textContent = this.description;
@@ -194,7 +194,7 @@ function warning(elem) {
 //////////////////// DATA & DISPLAY ////////////////////
 function loadData() {
     const savedVersion = localStorage.getItem("version");
-    lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck") || 0;
+    lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck") ?? 0;
     resetUTCTime = localStorage.getItem("utcOffset");
     if (resetUTCTime == null) {
         resetUTCTime = new Date().getTimezoneOffset();
@@ -401,4 +401,75 @@ function updateSettingDisplay() {
     } else {
         document.getElementById('timezonedisplay').textContent = "Time Zone (err)";
     }
+}
+
+
+
+
+
+
+
+
+//////////////////// FILE ////////////////////
+
+function downloadData() {
+    let data = {};
+
+    data.data = taskList
+    data.version = 1;
+    data.lasttimestampcheck = lastUpdateTimestamp;
+    data.utcOffset = resetUTCTime;
+
+    download("data.todolist", JSON.stringify(data, function(key, value) {
+        if (key !== 'element') return value;
+    }));
+}
+
+function uploadData() {
+    request(data => {
+        let json = JSON.parse(data);
+        
+        lastUpdateTimestamp = json.lasttimestampcheck;
+        resetUTCTime = json.utcOffset;
+
+        let list = json.data;
+        taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete, x.colorGroup ?? 0));
+
+        document.getElementById('tasklist').innerHTML = '';
+        saveData();
+        loadData();
+        closeSettings();
+    })
+}
+
+function download(filename, text) {
+	let e = document.createElement('a');
+	e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	e.setAttribute('download', filename);
+	e.style.display = 'none';
+	document.body.appendChild(e);
+	e.click();
+	document.body.removeChild(e);
+}
+
+function request(onload) {
+    let input = document.createElement('input');
+    input.type = 'file';
+    
+    input.onchange = e => { 
+       // getting a hold of the file reference
+       let file = e.target.files[0]; 
+    
+       // setting up the reader
+       let reader = new FileReader();
+       reader.readAsText(file,'UTF-8');
+    
+       // here we tell the reader what to do when it's done reading...
+       reader.onload = readerEvent => {
+          onload(readerEvent.target.result)
+          input.remove();
+       }
+    }
+    
+    input.click();
 }

@@ -235,3 +235,10 @@ input[type="text"]:focus {
 .pink_button { background-color:hsl(0 50% 80%); border-color:hsl(0 50% 80%) }
 .blue_button { background-color:hsl(190 50% 80%); border-color:hsl(190 50% 80%) }
 .white_button { background-color:hsl(0 0% 80%); border-color:hsl(0 0% 80%) }
+
+.section button {
+    display:inline-block;
+    position:relative;
+    margin: 30px auto;
+    width: 30%;
+}
