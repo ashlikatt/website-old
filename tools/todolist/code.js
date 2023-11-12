@@ -192,7 +192,11 @@ function warning(elem) {
 function loadData() {
     const savedVersion = localStorage.getItem("version");
     lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck");
-    resetUTCTime = localStorage.getItem("utcOffset") ?? 0;
+    resetUTCTime = localStorage.getItem("utcOffset");
+    if (resetUTCTime == null) {
+        resetUTCTime = new Date().getTimezoneOffset();
+        saveData();
+    }
 
     if (savedVersion == null) {
         // Not new
