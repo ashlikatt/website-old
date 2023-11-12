@@ -19,13 +19,13 @@ const FADE_OUT = [
 const COLOR_GROUPS = ["white_task", "blue_task", "green_task", "pink_task", "purple_task"];
 
 class UserTask {
-    constructor(title, description, daily, complete, color_group = 0) {
+    constructor(title, description, daily, complete, colorGroup = 0) {
         this.element = undefined;
         this.title = title; // String
         this.description = description; // String or Null
         this.daily = daily; // True or False
         this.complete = complete; // False or timestamp completed
-        this.color_group = color_group;
+        this.colorGroup = colorGroup;
 
         this.createElement();
     }
@@ -33,13 +33,13 @@ class UserTask {
     createElement() {
         const container = document.createElement("div");
         this.element = container;
-        container.classList.add("task", COLOR_GROUPS[this.color_group]);
+        container.classList.add("task", COLOR_GROUPS[this.colorGroup]);
         const titleElem = document.createElement("h2");
         titleElem.classList.add("noselect");
         if (this.daily) titleElem.classList.add("daily");
         titleElem.textContent = this.title;
         container.appendChild(titleElem);
-        if (this.description !== null && this.description !== undefined && this.description !== "") {
+        if (!this.description) {
             const desc = document.createElement('p');
             desc.classList.add("noselect");
             desc.textContent = this.description;
@@ -50,7 +50,7 @@ class UserTask {
             e.preventDefault();
             e.stopPropagation();
             if (e.button === 0) { // LC
-                if (this.complete === false) {
+                if (!this.complete) {
                     this.disable();
                 } else {
                     this.enable();
@@ -85,7 +85,7 @@ class UserTask {
     }
 
     get sortScore() {
-        return this.color_group + (this.complete === false ? 50 : 0);
+        return this.colorGroup + (this.complete === false ? 50 : 0);
     }
 }
 
@@ -98,7 +98,7 @@ class UserTask {
 
 //////////////////// MAIN ////////////////////
 
-var fading = false;
+var isFading = false;
 var taskList = [];
 var lastUpdateTimestamp = 0;
 var resetUTCTime = 0;
@@ -126,13 +126,13 @@ function createNewTask() {
 }
 
 function stopCreateNewTask() {
-    if (fading) return;
-    fading = true;
+    if (isFading) return;
+    isFading = true;
     const elem = document.getElementById('newtaskpopup');
     const anim = elem.animate(FADE_OUT, 300);
     anim.onfinish = () => {
         elem.style.display = 'none';
-        fading = false;
+        isFading = false;
 
         // Clear text
         for (let e of document.getElementsByClassName('clearOnClose')) {
@@ -150,7 +150,7 @@ function stopCreateNewTask() {
 }
 
 function attemptFinalizeTask() {
-    if (fading) return;
+    if (isFading) return;
 
     const inputOnce = document.getElementById('inputOnce')?.checked;
     const inputDaily = document.getElementById('inputDaily')?.checked;
@@ -158,7 +158,7 @@ function attemptFinalizeTask() {
     const inputDescription = document.getElementById('inputDescription')?.value;
     const colorID = parseInt(document.querySelector('input[name="color"]:checked').value);
 
-    if (!inputTitle || inputTitle === "") {
+    if (!inputTitle) {
         warning(document.getElementById('createTaskButton'));
         warning(document.getElementById('inputTitle'));
         return;
@@ -169,7 +169,7 @@ function attemptFinalizeTask() {
     updateDisplay();
     saveData();
 
-    fading = false;
+    isFading = false;
     stopCreateNewTask();
 }
 
@@ -192,12 +192,12 @@ function warning(elem) {
 function loadData() {
     const savedVersion = localStorage.getItem("version");
     lastUpdateTimestamp = localStorage.getItem("lasttimestampcheck");
-    resetUTCTime = localStorage.getItem("utcOffset") || 0;
+    resetUTCTime = localStorage.getItem("utcOffset") ?? 0;
 
-    if (savedVersion !== null && savedVersion !== undefined) {
+    if (savedVersion == null) {
         // Not new
         let list = JSON.parse(localStorage.getItem("data"));
-        taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete, x.color_group || 0));
+        taskList = list.map(x => new UserTask(x.title, x.description, x.daily, x.complete, x.colorGroup ?? 0));
     }
 }
 
@@ -254,26 +254,26 @@ function beginEditTask(task) {
     document.getElementById('editOnce').checked = !task.daily;
     document.getElementById('editDaily').checked = task.daily;
     document.getElementById('editTitle').value = task.title;
-    document.getElementById('editDescription').value = task.description || "";
+    document.getElementById('editDescription').value = task.description ?? "";
     for (let elem of document.getElementsByClassName('editcolor')) {
-        elem.checked = parseInt(elem.value) === task.color_group;
+        elem.checked = parseInt(elem.value) === task.colorGroup;
     }
     document.getElementById('edittaskpopup').style.display = 'block';
 }
 
 function stopEditTask() {
-    if (fading) return;
-    fading = true;
+    if (isFading) return;
+    isFading = true;
     const elem = document.getElementById('edittaskpopup');
     const anim = elem.animate(FADE_OUT, 300);
     anim.onfinish = _ => {
         elem.style.display = 'none';
-        fading = false;
+        isFading = false;
     }
 }
 
 function attemptEditTask() {
-    if (fading) return;
+    if (isFading) return;
 
     const inputOnce = document.getElementById('editOnce')?.checked;
     const inputDaily = document.getElementById('editDaily')?.checked;
@@ -281,7 +281,7 @@ function attemptEditTask() {
     const inputDescription = document.getElementById('editDescription')?.value;
     const colorID = parseInt(document.querySelector('input[name="editcolor"]:checked').value);
 
-    if (!inputTitle || inputTitle === "") {
+    if (!inputTitle) {
         warning(document.getElementById('createTaskButton'));
         warning(document.getElementById('editTitle'));
         return;
@@ -290,7 +290,7 @@ function attemptEditTask() {
     editingTask.title = inputTitle;
     editingTask.description = inputDescription;
     editingTask.daily = inputOnce === false;
-    editingTask.color_group = colorID;
+    editingTask.colorGroup = colorID;
 
     editingTask.element.remove();
     editingTask.createElement();
@@ -298,12 +298,12 @@ function attemptEditTask() {
     saveData();
 
 
-    fading = false;
+    isFading = false;
     stopEditTask();
 }
 
 function deleteTask() {
-    if (fading) return;
+    if (isFading) return;
 
     for (let i = 0; i < taskList.length; i++) {
         if (taskList[i].element === editingTask.element) {
@@ -316,7 +316,7 @@ function deleteTask() {
     saveData();
 
     editingTask = undefined;
-    fading = false;
+    isFading = false;
     stopEditTask();
 }
 
@@ -363,36 +363,36 @@ function settingsMenu() {
 }
 
 function closeSettings() {
-    if (fading) return;
-    fading = true;
+    if (isFading) return;
+    isFading = true;
 
     const elem = document.getElementById('settingsbox');
     const anim = elem.animate(FADE_OUT, 300);
     anim.onfinish = _ => {
         elem.style.display = 'none';
-        fading = false;
+        isFading = false;
     }
 }
 
 function updateSettings() {
-    if (fading) return;
+    if (isFading) return;
     resetUTCTime = document.getElementById('settingUTCOffset').value;
 
     saveData();
 
-    fading = false;
+    isFading = false;
     closeSettings();
 }
 
 function updateSettingDisplay() {
     const val = document.getElementById('settingUTCOffset').value;
     if (val == 0) {
-        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC)";
+        document.getElementById('timezonedisplay').textContent = "Time Zone (UTC)";
     } else if (val > 0 && val <= 12) {
-        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC+" + val + ")";
+        document.getElementById('timezonedisplay').textContent = "Time Zone (UTC+" + val + ")";
     } else if (val < 0 && val >= -12) {
-        document.getElementById('timezonedisplay').innerHTML = "Time Zone (UTC" + val + ")";
+        document.getElementById('timezonedisplay').textContent = "Time Zone (UTC" + val + ")";
     } else {
-        document.getElementById('timezonedisplay').innerHTML = "Time Zone (err)";
+        document.getElementById('timezonedisplay').textContent = "Time Zone (err)";
     }
 }
