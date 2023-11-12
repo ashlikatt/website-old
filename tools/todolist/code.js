@@ -104,7 +104,7 @@ addEventListener('load', function() {
     updateDisplay();
     this.setInterval(updateDailyTasks, 1000);
 
-    document.getElementById('settingUTCOffset').onchange = updateSettingDisplay
+    document.getElementById('settingUTCOffset').oninput = updateSettingDisplay
 });
 
 
