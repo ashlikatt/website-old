@@ -84,13 +84,13 @@
 
 .complete {
     background-color: #111;
-    color: #444;
+    color: #44444499;
     border-left: 8px solid hsl(0 0% 10%);
 }
 
 .complete:hover {
     background-color: #141414;
-    color: #444;
+    color: #44444499;
     cursor:default;
     z-index: 2;
 }
@@ -115,12 +115,12 @@
 
 
 .complete h2 {
-    color: #444;
+    color: #44444499;
     /* text-decoration: line-through #555 solid 2px; */
 }
 
 .complete p {
-    color: #444;
+    color: #44444499;
     /* text-decoration: line-through #555 solid 2px; */
 }
 
