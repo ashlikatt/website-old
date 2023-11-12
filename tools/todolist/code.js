@@ -256,6 +256,9 @@ function beginEditTask(task) {
     document.getElementById('editDaily').checked = task.daily;
     document.getElementById('editTitle').value = task.title;
     document.getElementById('editDescription').value = task.description || ""
+    for (let elem of document.getElementsByClassName('editcolor')) {
+        elem.checked = parseInt(elem.value) === task.color_group;
+    }
     document.getElementById('edittaskpopup').style.display='block';
 }
 
@@ -277,6 +280,7 @@ function attemptEditTask() {
     const inputDaily = document.getElementById('editDaily')?.checked
     const inputTitle = document.getElementById('editTitle')?.value
     const inputDescription = document.getElementById('editDescription')?.value
+    const colorID = parseInt(document.querySelector('input[name="editcolor"]:checked').value);
 
     if (!inputTitle || inputTitle === "") {
         warning(document.getElementById('createTaskButton'));
@@ -287,6 +291,7 @@ function attemptEditTask() {
     editingTask.title = inputTitle;
     editingTask.description = inputDescription;
     editingTask.daily = inputOnce === false;
+    editingTask.color_group = colorID;
 
     editingTask.element.remove();
     editingTask.createElement();
