@@ -17,31 +17,31 @@
     </head>
     <body>
         <noscript>
-            <h1 class="fadein noselect">JavaScript is disabled. This page requires JavaScript to run.</h1>
+            <h1 class="fadein">JavaScript is disabled. This page requires JavaScript to run.</h1>
         </noscript>
 
         <div id="body" class="hidden">
-            <p id="warning" class="noselect">
+            <p id="warning">
                 Note: This page uses localStorage to remember your to-do information when you exit.<br>
                 This data is only stored locally on your computer, and will be lost if you clear browsing data!<br><br>
                 Left Click to mark tasks as complete.<br>
                 Right Click to edit existing tasks.</p>
 
-            <h1 class="fadein noselect" id="title">Your To-Do List:</h1>
+            <h1 class="fadein" id="title">Your To-Do List:</h1>
 
             <div id="tasklist">
 
             </div>
 
-            <h1 id="emptytasklist" class="noselect">(No tasks to display)</h1>
+            <h1 id="emptytasklist">(No tasks to display)</h1>
 
-            <h1 id="newtask" class="noselect" onclick="createNewTask();">Create New Task</h1>
-            <h1 id="settings" class="noselect" onclick="settingsMenu();">Settings</h1>
+            <h1 id="newtask" onclick="createNewTask();">Create New Task</h1>
+            <h1 id="settings" onclick="settingsMenu();">Settings</h1>
         </div>
 
         <div id="newtaskpopup" class="hidden modal">
             <div class="popup">
-                <h1 class="noselect">Create New Task:</h1>
+                <h1>Create New Task:</h1>
 
                 <button class="leftbutton" onclick="stopCreateNewTask();">Cancel</button>
                 <button class="rightbutton" id="createTaskButton" onclick="attemptFinalizeTask();">Create</button>
@@ -55,42 +55,42 @@
                 <div class="section">
                     <h2>Task Schedule</h2>
 
-                    <label class="container noselect">
+                    <label class="container">
                         <input id="inputDaily" class="defaultRadio" type="radio" checked="checked" name="schedule">
                         <span class="radio_background">Daily</span>
                     </label>
 
-                    <label class="container noselect">
+                    <label class="container">
                         <input id="inputOnce" class="radio" type="radio" name="schedule">
                         <span class="radio_background">Once</span>
                     </label>
                 </div>
 
                 <div class="section">
-                    <h2>Color Group</h2>
+                    <h2 >Color Group</h2>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="inputColorPurple" class="radio" type="radio" name="color" value="4">
                         <div class="color_background purple_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="inputColorPink" class="radio" type="radio" name="color" value="3">
                         <div class="color_background pink_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="inputColorGreen" class="radio" type="radio" name="color" value="2">
                         <div class="color_background green_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="inputColorBlue" class="radio" type="radio" name="color" value="1">
                         <div class="color_background blue_button"></div>
                     </label>
 
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="inputColorWhite" class="defaultRadio" type="radio" checked="checked" name="color" value="0">
                         <div class="color_background white_button"></div>
                     </label>
@@ -102,7 +102,7 @@
 
         <div id="edittaskpopup" class="hidden modal">
             <div class="popup">
-                <h1 class="noselect">Edit Task:</h1>
+                <h1>Edit Task:</h1>
 
                 <button class="leftbutton" onclick="stopEditTask();">Cancel</button>
                 <button class="rightbutton" onclick="attemptEditTask();">Update</button>
@@ -116,12 +116,12 @@
                 <div class="section">
                     <h2>Task Schedule</h2>
 
-                    <label class="container noselect">
+                    <label class="container">
                         <input id="editDaily" class="defaultRadio" type="radio" checked="checked" name="editschedule">
                         <span class="radio_background">Daily</span>
                     </label>
 
-                    <label class="container noselect">
+                    <label class="container">
                         <input id="editOnce" class="radio" type="radio" name="editschedule">
                         <span class="radio_background">Once</span>
                     </label>
@@ -130,27 +130,27 @@
                 <div class="section">
                     <h2>Color Group</h2>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="editColorPurple" class="radio editcolor" type="radio" name="editcolor" value="4">
                         <div class="color_background purple_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="editColorPink" class="radio editcolor" type="radio" name="editcolor" value="3">
                         <div class="color_background pink_button"></div>
                     </label>
                     
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="editColorGreen" class="radio editcolor" type="radio" name="editcolor" value="2">
                         <div class="color_background green_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="editColorBlue" class="radio editcolor" type="radio" name="editcolor" value="1">
                         <div class="color_background blue_button"></div>
                     </label>
 
-                    <label class="color-container noselect">
+                    <label class="color-container">
                         <input id="editColorWhite" class="defaultRadio editcolor" type="radio" checked="checked" name="editcolor" value="0">
                         <div class="color_background white_button"></div>
                     </label>
@@ -162,7 +162,7 @@
 
         <div id="settingsbox" class="hidden modal">
             <div class="popup">
-                <h1 class="noselect">Settings and Preferences:</h1>
+                <h1>Settings and Preferences:</h1>
 
                 <button class="leftbutton" onclick="closeSettings();">Cancel</button>
                 <button class="rightbutton" onclick="updateSettings();">Update</button>
