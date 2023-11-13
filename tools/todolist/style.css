@@ -49,8 +49,6 @@ p {
     animation-fill-mode: both;
 }
 
-
-
 #settings {
     left: 20px;
 }
@@ -69,7 +67,6 @@ p {
     margin:auto;
     padding: 25%;
 }
-
 
 #warning {
     position:fixed;

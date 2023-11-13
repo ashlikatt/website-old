@@ -87,16 +87,27 @@
     margin:30px auto;
 }
 
+.title {
+    max-width: 50%;
+    text-wrap:wrap;
+    word-break:break-all;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .rightbutton {
     position:absolute;
     right: 20px;
     top: 20px;
+    max-width: 25%;
 }
 
 .leftbutton {
     position:absolute;
     left: 20px;
     top: 20px;
+    max-width: 25%;
 }
 
 
