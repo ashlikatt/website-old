@@ -1,0 +1,16 @@
+<svg width="100" height="100">
+
+    <polygon points=
+    "5,5 20,5 57.5,95 42.5,95"
+    fill="#0B7"
+    stroke="#0B7"
+    stroke-width="1.5"
+    stroke-linejoin="round"/>
+
+    <polygon points=
+    "80,5 95,5 63.5,80.6 56,62.6"
+    fill="#096"
+    stroke="#096"
+    stroke-width="1.5"
+    stroke-linejoin="round"/>
+</svg>
