@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="https://www.ashli.dev/caticon.png?v=3">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="style.css">
+        <title>DFON - Ashli's Site</title>
+        <meta name="author" content="Ashli Katt">
+        <meta content="Ashli's Site" property="og:title" />
+        <meta content="DiamondFire Object Notation Reference" property="og:description" />
+        <meta content="https://ashli.dev/langs/dfon/reference" property="og:url" />
+        <meta content="https://ashli.dev/caticon.png" property="og:image" />
+        <meta content="#FF8888" data-react-helmet="true" name="theme-color" />
+    </head>
+    <body style="position:relative">
+        <div class="rows">
+            <div class="row pad">
+                <h1>DiamondFire Object Notation</h1>
+                <a href="../"><button class="cornerButton">Back</button></a>
+            </div>
+
+            <div class="row pad">            
+                <p>
+                    DiamondFire Object Notation is a JSON-like language for constant data on DiamondFire plots. It is not a programming language.
+                    DFON was created to streamline the production of games with large amounts of constant data. It may be helpful for things like weapon stats,
+                    map regions, npc dialogue, etc.<br><br>
+
+                    It is recommended to have an understanding of <a rel="external" href="https://www.json.org/json-en.html" target="_blank" class="externalLink">JSON</a>
+                    before using DFON, as they share many similarities.
+                </p>
+
+
+
+
+
+                <br><h2>Basic Structure</h2><p>
+                    A DFON file contains exactly one dictionary and nothing else. 
+                    Dictionaries are explained in greater detail below, but for now this is what they look like. (Note that whitespace is not significant)
+                    <br>
+
+<span class="codeSample">{
+    <span class="ident">key</span>: <span class="str">"value"</span>,
+    <span class="ident">anotherKey</span>: <span class="str">"another value"</span>
+}</span>
+
+                This top-level dictionary that occupies the entire file is called the "main dictionary." The main dictionary is special because when compiled, 
+                its keys will become global variables for your plot to use. This is in contrast to other dictionaries, which will compile to an actual dictionary value in DiamondFire.
+                <br><br>
+                When compiled, the above example will create a template that sets two global variables called "key" and "anotherKey", both set to their respective strings.
+                <br><br>
+                Comments can be written using two slashes, or slash-star for multiline comments. Comments are completely ignored by the compiler and serve only to document or explain things to the programmer.
+
+                <span class="codeSample">{
+    <span class="comment">// This is the main dictionary</span>
+}
+
+<span class="comment">/* This is a multi-line comment!
+   They are useful for documenting large sections of your file. */</span></span>
+
+                </p>
+                
+
+
+
+                <br><h2>Dictionaries</h2><p>
+                    Dictionaries are written as 0 or more comma-separated key-value pairs inside curly braces. Trailing commas are allowed.
+                    Each key and value is separated with a colon symbol. Keys are either identifiers or strings (covered later), while values can be any DFON data type.
+<span class="codeSample">{
+    <span class="ident">globalVariable</span>: {
+        <span class="ident">key1</span>: <span class="str">"Hello"</span>,
+        <span class="ident">key2</span>: <span class="str">"World"</span>,
+    }
+}</span> 
+                    The example above will compile to a single global variable titled "globalVariable". 
+                    The variable will contain a dictionary with entries "key1" and "key2" set to the "Hello" and "World" strings, respectively.
+                </p>
+
+
+
+
+                <br><h2>Strings and Text</h2><p>
+                    Strings are written as a pair of single or double quotes with text inside.
+                    Backslashes are used as an escape character, and all of the usual candidates may be escaped. (n, r, t, b, \, ', ", newlines)<br>
+                    All of the following are valid strings.
+<span class="codeSample"><span class="str">"Hello"
+'I love "strings"'
+"New <span class="escaped">\n</span> Line"
+""
+'<span class="escaped">\\</span>'</span> <span class="comment">// This is just a single backslash</span>
+</span>
+                    Styled Text is written exactly the same way as strings, but with a "T" before the first quote.
+<span class="codeSample"><span class="text">T"&lt#FFFFFF&gtthis is text"</span>
+<span class="text">t'the "T" in text may be lowercase'</span></span>            
+                </p>
+
+
+
+                <br><h2>Identifiers</h2><p>
+                    Identifiers must begin with an underscore or letter, and may contain letters, underscores, and numbers.
+                    They are only used as a more concise syntax for dictionary keys compared to strings.
+<span class="codeSample"><span class="ident">identifier
+Ident
+_ident33
+_
+_9identifier5
+</span></span>
+                    Identifiers are the only element where whitespace may be significant. "a a" is distinct from "aa".
+                </p>
+
+
+
+                <br><h2>Numbers</h2><p>
+                    Numbers can be written in base-10 as you'd expect, or in either Hex, Octal, or Binary by beginning the number with 0.
+                    Numbers may also have underscores anywhere inside of them for organization.<br>
+                    All of the following are valid numbers.
+<span class="codeSample"><span class="number">2,
+3.5
+-1.235
+1_000_000_000
+0b1101 <span class="comment">// 13</span>
+-0o7700 <span class="comment">// -4032</span>
+0xFF_CC_77 <span class="comment">// 16764023</span></span></span>  
+                    DiamondFire stores numbers as 64-bit longs with a fixed decimal position of 3 digits (base-10). 
+                    The compiler on my site treats numbers as 64-bit floats. Generally speaking, there should be no issues but keep it in mind.
+                </p>
+
+
+
+
+
+                <br><h2>Locations and Vectors</h2><p>
+                    Locations are written as 3 or 5 comma-separated numbers inside of parenthesis. The numbers are in the order: X, Y, Z, Pitch, Yaw. Trailing commas are allowed.<br>
+                    The following are valid locations:
+<span class="codeSample"><span class="loc">(-15, 62, 15)</span>
+<span class="loc">(50.5, 100.5, 50.5, 0, 90)</span>
+</span> 
+
+                Vectors are similar to locations, being written as 3 comma-separated numbers inside of angle brackets. The numbers are in the order: X, Y, Z. Trailing commas are allowed.<br>
+                The following are valid vectors:
+<span class="codeSample"><span class="vec">&lt1, 0, 0&gt,</span>
+<span class="vec">&lt-1, 0.5, 0&gt</span>
+</span>
+
+                </p>
+                
+
+
+
+
+
+
+
+
+
+
+                <br><h2>Lists</h2><p>
+                    Lists are written using square brackets with 0 or more comma-separated values inside. Trailing commas are allowed.<br>
+                    The following are valid lists:
+<span class="codeSample">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+[
+    <span class="str">"Hello"</span>,
+    <span class="str">"World"</span>,
+]
+</span> 
+                    Lists may hold any value, including dictionaries and other lists.
+                </p>
+
+
+
+                <br><h2>Large Example</h2><p>
+                    Sometimes it's easier to learn by looking at an example. Here is an example of DFON in action.
+<span class="codeSample"><span class="comment">// Holds all game data</span>
+{
+
+    <span class="comment">// Used for blockdata lookups</span>
+    <span class="ident">dirMap</span>: {
+         <span class="ident">east</span>: <span class="vec">&lt 1,  0,  0&gt</span>,
+         <span class="ident">west</span>: <span class="vec">&lt-1,  0,  0&gt</span>,
+        <span class="ident">north</span>: <span class="vec">&lt 0,  0, -1&gt</span>,
+        <span class="ident">south</span>: <span class="vec">&lt 0,  0,  1&gt</span>,
+           <span class="ident">up</span>: <span class="vec">&lt 0,  1,  0&gt</span>,
+         <span class="ident">down</span>: <span class="vec">&lt 0, -1,  0&gt</span>,
+    },
+
+    <span class="comment">// Stores mineable block information</span>
+    <span class="ident">blockData</span>: {
+        <span class="str">'stone'</span>: {
+            <span class="ident">miningTime</span>: <span class="number">40</span>,
+            <span class="ident">pickaxePower</span>: <span class="number">0</span>,
+            <span class="ident">drops</span>: [<span class="str">'stone'</span>],
+        },
+        <span class="str">'andesite'</span>: {
+            <span class="ident">miningTime</span>: <span class="number">60</span>,
+            <span class="ident">pickaxePower</span>: <span class="number">1</span>,
+            <span class="ident">drops</span>: [<span class="str">'stone'</span>, <span class="str">'iron_scrap'</span>, <span class="str">'none'</span>],
+        },
+        <span class="str">'cobblestone'</span>: {
+            <span class="ident">miningTime</span>: <span class="number">80</span>,
+            <span class="ident">pickaxePower</span>: <span class="number">2</span>,
+            <span class="ident">drops</span>: [<span class="str">'stone'</span>, <span class="str">'gold_scrap'</span>, <span class="str">'none'</span>],
+        },
+    },
+}
+</span> 
+                    This code, when compiled, will create two variables: "dirMap" and "blockData" for use by the plot.
+                </p>
+
+
+                <br><h2>Compilation</h2><p>
+                    Compiled DFON code will generate one process, and 0 or more functions. All generated templates need to be placed down to work.
+                    You will need to manually call the process when the first player joins the plot, there is no need to manually call the functions.
+                </p>
+
+                <br><h2>Limits</h2><p>
+                    DFON isn't a good fit for every project. Using it means that any time you want to change data, you will need to edit the script,
+                    recompile the code, and replace the templates. This is made even harder if multiple people are working on your plot.<br><br>
+
+                    The main reasons to use DFON are to make constant data easier to read through and spot bugs with, as well as providing a sort of "backup" in case 
+                    code is accidentally lost. Constant data is often more devastating to lose than a simple algorithm.<br><br>
+
+                    You can join my <a rel="external" href="https://discord.gg/G6nuF8zz7S" target="_blank" class="externalLink">Discord</a> to get in contact if you'd like to suggest features.
+                    I am still currently thinking about implementation for function hooks, macros, embedded metadata, support for all DF datatypes, and support for items, among other things.
+                </p>
+            </div>
+
+            
+        </div>
+        
+    </body>
+</html>

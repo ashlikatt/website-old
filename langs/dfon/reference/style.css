@@ -1,0 +1,31 @@
+.codeSample .comment {
+    color: #AAAAAA
+}
+
+.codeSample .str {
+    color: #AAFFFF
+}
+
+.codeSample .text {
+    color: #77CC77
+}
+
+.codeSample .escaped {
+    color: #66BBBB
+}
+
+.codeSample .number {
+    color: #FFAAAA
+}
+
+.codeSample .ident {
+    color: #FFCC77
+}
+
+.codeSample .vec {
+    color: #AAFFCC
+}
+
+.codeSample .loc {
+    color: #77FF77
+}

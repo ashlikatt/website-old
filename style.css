@@ -60,6 +60,24 @@ p {
     width:75%;
 }
 
+.codeSample {
+    display: block;
+    background-color: #222;
+    color:#DDD;
+    
+    white-space: pre;
+    width:75%;
+
+    padding: 10px 10px;
+    margin: 10px 0px;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+
+    border-radius: 4px;
+}
+
 a {
     color:#F55;
     text-decoration: underline;
@@ -130,6 +148,32 @@ textarea, input[type="file"], input[type="range"], .input {
     font-size: 16px;
 
     border-radius: 4px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.radioButton {
+    display: block;
+    padding: 10px 5px;
+    margin: 4px 4px;
+    overflow:hidden;
+    background-color: #555;
+    color:#DDD;
+    outline:none;
+
+    font-family:'Courier New', Courier, monospace;
+    font-weight:normal;
+    font-size: 16px;
+    text-align: center;
+
+    border-radius: 4px;
+}
+
+input[type="radio"]:checked+label {
+    background-color: #888;
+    transition: 0.1s;
 }
 
 .cli {
