@@ -102,7 +102,7 @@ function parseObject(iter) {
         } else break
     }
 
-    iter.requireNext(TokenType.CLOSE_BRACE, "end of object (close brace)")
+    iter.requireNext(TokenType.CLOSE_BRACE, "end of object (close brace) or comma")
     return obj;
 }
 
@@ -121,7 +121,7 @@ function parseList(iter) {
         } else break
     }
 
-    iter.requireNext(TokenType.CLOSE_BRACKET)
+    iter.requireNext(TokenType.CLOSE_BRACKET, "end of list (close bracket) or comma")
     return list;
 }
 
@@ -148,7 +148,7 @@ function parseLocation(iter) {
 
     if (iter.peek().type === TokenType.COMMA) iter.next();
 
-    iter.requireNext(TokenType.CLOSE_PAREN)
+    iter.requireNext(TokenType.CLOSE_PAREN, "end of location (close parenthesis)")
 
     return new DFLocation(x, y, z, pitch, yaw)
 }
@@ -166,7 +166,7 @@ function parseVector(iter) {
 
 
     if (iter.peek().type === TokenType.COMMA) iter.next();
-    iter.requireNext(TokenType.CLOSE_ANGLE)
+    iter.requireNext(TokenType.CLOSE_ANGLE, "end of vector (close angle bracket)")
 
     return new DFVector(x, y, z)
 }
