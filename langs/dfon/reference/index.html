@@ -167,6 +167,28 @@ _9identifier5
                     Lists may hold any value, including dictionaries and other lists.
                 </p>
 
+                <br><h2>Macros</h2><p>
+                    Macros are defined at the top of the file, before the main dictionary. They specify a shorthand syntax for a value.
+                    They are not function calls, they internally expand out into their defined value.<br>
+                    The following are valid macros:
+<span class="codeSample"><span class="keyword">macro</span> <span class="ident">hour</span>() = <span class="number">3600</span>
+
+<span class="keyword">macro</span> <span class="ident">pair</span>(<span class="ident">x</span>) = [<span class="ident">x</span>, <span class="ident">x</span>]
+
+<span class="keyword">macro</span> <span class="ident">single</span>(<span class="ident">key</span>, <span class="ident">value</span>) = {
+    <span class="ident">key</span>: <span class="ident">value</span>
+}
+</span> 
+                    Macro parameters may be referenced with simply their name. <br>
+                    The following are valid macro calls:
+                    <span class="codeSample"><span class="ident">hour</span>() <span class="comment">// Compiles to 3600</span>
+
+<span class="ident">pair</span>(<span class="number">3</span>) <span class="comment">// Compiles to [3, 3]</span>
+
+<span class="ident">single</span>(<span class="str">"h"</span>, <span class="number">5</span>) <span class="comment">// Compiles to { h: 5 }</span>
+</span> 
+                </p>
+
 
 
                 <br><h2>Large Example</h2><p>

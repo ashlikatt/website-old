@@ -61,6 +61,8 @@ const TokenType = {
     "CLOSE_PAREN": 11,
     "OPEN_ANGLE": 12,
     "CLOSE_ANGLE": 13,
+    "EQUALS": 14,
+    "MACRO": 15,
 }
 
 const ReverseTokenMap = [
@@ -78,6 +80,8 @@ const ReverseTokenMap = [
     "CLOSE_PAREN",
     "OPEN_ANGLE",
     "CLOSE_ANGLE",
+    "EQUALS",
+    "MACRO",
 ]
 
 class Token {
@@ -100,6 +104,14 @@ class Token {
         return this;
     }
 
+    loc() {
+        return {
+            column: this.column,
+            line: this.line,
+            sourceIndex: this.sourceIndex
+        }
+    }
+
     err(supplement) {
         throw new CompileError(supplement + `\nAt: line ${this.line}, column ${this.column}`, this.sourceIndex)
     }
@@ -115,7 +127,8 @@ const SINGLE_CHAR_TOKENS = {
     ",": TokenType.COMMA,
     ":": TokenType.COLON,
     "<": TokenType.OPEN_ANGLE,
-    ">": TokenType.CLOSE_ANGLE
+    ">": TokenType.CLOSE_ANGLE,
+    "=": TokenType.EQUALS
 }
 
 /**
@@ -200,7 +213,11 @@ function tokenize(source) {
                 identifier += iter.next()
             }
 
-            tokens.push(new Token(TokenType.IDENTIFIER, identifier).context(tokenPosition))
+            if (identifier == "macro") {
+                tokens.push(new Token(TokenType.MACRO).context(tokenPosition))
+            } else {
+                tokens.push(new Token(TokenType.IDENTIFIER, identifier).context(tokenPosition))
+            }
             continue
         } 
         

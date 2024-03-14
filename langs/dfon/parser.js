@@ -55,47 +55,87 @@ class TokenIterator {
     }
 }
 
-class DFObject { constructor(n) { this.data = n } } // {a: 2, b: 3}
-class DFList { constructor(n) { this.data = n } } // [2, 3]
-class DFString { constructor(n) { this.data = n } } // "string"
-class DFText { constructor(n) { this.data = n } } // T"<#FFFFFF>text"
-class DFNumber { constructor(n) { this.data = n } } // 1.0, 0xFF, etc
-class DFLocation { constructor(x, y, z, P, Y) { this.x=x;this.y=y;this.z=z;this.pitch=P;this.yaw=Y; } } // (255, 255, 255, 0, 0)
-class DFVector { constructor(x, y, z) { this.x=x;this.y=y;this.z=z; } } // <1, 0, 0>
-class DFSound { constructor(n) { this.data = n } } // unimplemented
-class DFParticle { constructor(n) { this.data = n } } // unimplemented
-class DFPotion { constructor(n) { this.data = n } } // unimplemented
+class MacroBody {
+    constructor(parameters, dfValue) {
+        this.parameters = parameters;
+        this.dfValue = dfValue;
+    }
+}
+
+class DFObjectNode { constructor(n, m, loc) { this.keys = n; this.vals = m; this.loc = loc; } } // {a: 2, b: 3}
+class DFListNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // [2, 3]
+class DFStringNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // "string"
+class DFTextNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // T"<#FFFFFF>text"
+class DFNumberNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // 1.0, 0xFF, etc
+class DFLocationNode { constructor(x, y, z, P, Y, loc) { this.x=x;this.y=y;this.z=z;this.pitch=P;this.yaw=Y; this.loc = loc; } } // (255, 255, 255, 0, 0)
+class DFVectorNode { constructor(x, y, z, loc) { this.x=x;this.y=y;this.z=z; this.loc = loc; } } // <1, 0, 0>
+class MacroDefNode { constructor(name, args, value, loc) { this.name=name; this.args=args; this.value=value; this.loc = loc; } }
+class MacroCallNode { constructor(name, args, loc) { this.name=name; this.args=args; this.loc = loc; } }
+class VarRefNode { constructor(name, loc) { this.name=name; this.loc = loc; } }
+class DFSoundNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // unimplemented
+class DFParticleNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // unimplemented
+class DFPotionNode { constructor(n, loc) { this.data = n; this.loc = loc; } } // unimplemented
 // No Game Value should be used! Ever!
 
 function parse(list) {
     let iter = new TokenIterator(list)
+    let context = parseContext(iter)
     let mainObject = parseObject(iter)
 
-    return mainObject;
+    return parseAST(mainObject, context, {});
+}
+
+/**
+ * Parses macros
+ * @param {TokenIterator} iter 
+ */
+function parseContext(iter) {
+    let context = {}
+
+    // While macros are left
+    while (iter.hasNext() && iter.peek().type === TokenType.MACRO) {
+        iter.next() // Skip "macro"
+        let macroName = iter.requireNext(TokenType.IDENTIFIER, "macro name")
+        let params = []
+
+        iter.requireNext(TokenType.OPEN_PAREN, "macro parameter list (open paren)")
+        while (iter.hasNext() && iter.peek().type !== TokenType.CLOSE_PAREN) {
+            let paramName = iter.requireNext(TokenType.IDENTIFIER, "parameter name (identifier)");
+
+            if (params.includes(paramName.data)) {
+                paramName.err("Duplicate macro parameter '" + paramName.data + "'.")
+            }
+
+            params.push(paramName.data)
+            
+            if (iter.peekIs(TokenType.COMMA)) {
+                iter.next()
+            } else break
+        }
+        iter.requireNext(TokenType.CLOSE_PAREN, "end of macro parameter list (close paren)")
+        iter.requireNext(TokenType.EQUALS, "macro body (equals)")
+        let val = parseValue(iter);
+        
+        context[macroName.data] = new MacroDefNode(macroName.data, params, val, macroName.loc())
+    }
+
+    return context;
 }
 
 /**
  * @param {TokenIterator} iter 
  */
 function parseObject(iter) {
-    iter.requireNext(TokenType.OPEN_BRACE)
+    let pos = iter.requireNext(TokenType.OPEN_BRACE)
 
-    let obj = new DFObject({});
+    let obj = new DFObjectNode([], [], pos.loc());
 
     while (iter.hasNext() && iter.peek().type !== TokenType.CLOSE_BRACE) {
-        const keyElement = iter.next()
-
-        if (keyElement.type !== TokenType.IDENTIFIER && keyElement.type !== TokenType.STRING) {
-            keyElement.err("Object keys can only be identifiers or strings.");
-        }
-
-        if (obj.data[keyElement.data] !== undefined) {
-            keyElement.err("Duplicate object key '" + keyElement.data + "'.")
-        }
+        obj.keys.push(parseValue(iter))
 
         iter.requireNext(TokenType.COLON)
 
-        obj.data[keyElement.data] = parseValue(iter)
+        obj.vals.push(parseValue(iter))
 
         if (iter.peekIs(TokenType.COMMA)) {
             iter.next()
@@ -109,9 +149,9 @@ function parseObject(iter) {
 /**
  * @param {TokenIterator} iter 
  */
-function parseList(iter) {
-    iter.requireNext(TokenType.OPEN_BRACKET)
-    let list = new DFList([]);
+function parseList(TokenIterator) {
+    let pos = iter.requireNext(TokenType.OPEN_BRACKET)
+    let list = new DFListNode([], pos.loc());
 
     while (iter.hasNext() && iter.peek().type !== TokenType.CLOSE_BRACKET) {
         list.data.push(parseValue(iter))
@@ -129,46 +169,46 @@ function parseList(iter) {
  * @param {TokenIterator} iter 
  */
 function parseLocation(iter) {
-    iter.requireNext(TokenType.OPEN_PAREN)
-    const x = iter.requireNext(TokenType.NUMBER, "location X value").data
+    let startToken = iter.requireNext(TokenType.OPEN_PAREN)
+    const x = parseValue(iter)
     iter.requireNext(TokenType.COMMA)
-    const y = iter.requireNext(TokenType.NUMBER, "location Y value").data
+    const y = parseValue(iter)
     iter.requireNext(TokenType.COMMA)
-    const z = iter.requireNext(TokenType.NUMBER, "location Z value").data
+    const z = parseValue(iter)
 
     let pitch = 0;
     let yaw = 0;
 
-    if (iter.peekIs(TokenType.COMMA) && iter.peekIs(TokenType.NUMBER, 1)) {
+    if (iter.peekIs(TokenType.COMMA) && iter.peekIsNot(TokenType.CLOSE_PAREN, 1)) {
         iter.next();
-        pitch = iter.requireNext(TokenType.NUMBER, "location pitch").data
+        pitch = parseValue(iter)
         iter.requireNext(TokenType.COMMA)
-        yaw = iter.requireNext(TokenType.NUMBER, "location yaw").data
+        yaw = parseValue(iter)
     }
 
     if (iter.peek().type === TokenType.COMMA) iter.next();
 
     iter.requireNext(TokenType.CLOSE_PAREN, "end of location (close parenthesis)")
 
-    return new DFLocation(x, y, z, pitch, yaw)
+    return new DFLocationNode(x, y, z, pitch, yaw, startToken.loc())
 }
 
 /**
  * @param {TokenIterator} iter 
  */
 function parseVector(iter) {
-    iter.requireNext(TokenType.OPEN_ANGLE)
-    const x = iter.requireNext(TokenType.NUMBER, "vector X component").data
+    let startToken = iter.requireNext(TokenType.OPEN_ANGLE)
+    const x = parseValue(iter)
     iter.requireNext(TokenType.COMMA)
-    const y = iter.requireNext(TokenType.NUMBER, "vector Y component").data
+    const y = parseValue(iter)
     iter.requireNext(TokenType.COMMA)
-    const z = iter.requireNext(TokenType.NUMBER, "vector Z component").data
+    const z = parseValue(iter)
 
 
     if (iter.peek().type === TokenType.COMMA) iter.next();
     iter.requireNext(TokenType.CLOSE_ANGLE, "end of vector (close angle bracket)")
 
-    return new DFVector(x, y, z)
+    return new DFVectorNode(x, y, z, startToken.loc())
 }
 
 /**
@@ -186,10 +226,37 @@ function parseValue(iter) {
     } else if (peeked === TokenType.OPEN_ANGLE) {
         return parseVector(iter)
     } else if (peeked === TokenType.STRING) {
-        return new DFString(iter.next().data)
+        let tok = iter.next();
+        return new DFStringNode(tok.data, tok.loc())
     } else if (peeked === TokenType.TEXT) {
-        return new DFText(iter.next().data)
+        let tok = iter.next();
+        return new DFTextNode(tok.data, tok.loc())
     } else if (peeked === TokenType.NUMBER) {
-        return new DFNumber(iter.next().data)
+        let tok = iter.next();
+        return new DFNumberNode(tok.data, tok.loc())
+    } else if (peeked === TokenType.IDENTIFIER) {
+        let tok = iter.next();
+        let ident = tok.data;
+
+        if (iter.peek().type === TokenType.OPEN_PAREN) {
+            iter.next();
+            let args = []
+    
+            while (iter.hasNext() && iter.peek().type !== TokenType.CLOSE_PAREN) {
+                args.push(parseValue(iter))
+
+                if (iter.peekIs(TokenType.COMMA)) {
+                    iter.next()
+                } else break
+            }
+    
+            iter.requireNext(TokenType.CLOSE_PAREN, "end of macro call arguments (close paren)")
+    
+            return new MacroCallNode(ident, args, tok.loc());
+        } else {
+            return new VarRefNode(ident, tok.loc());
+        }
+    } else {
+        iter.peek().err("Unknown value type, contact ashli! Code: " + ReverseTokenMap[peeked])
     }
 }
