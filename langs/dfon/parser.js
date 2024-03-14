@@ -257,6 +257,6 @@ function parseValue(iter) {
             return new VarRefNode(ident, tok.loc());
         }
     } else {
-        iter.peek().err("Unknown value type, contact ashli! Code: " + ReverseTokenMap[peeked])
+        iter.peek().err("expected value, found " + ReverseTokenMap[peeked])
     }
 }
