@@ -149,7 +149,7 @@ function parseObject(iter) {
 /**
  * @param {TokenIterator} iter 
  */
-function parseList(TokenIterator) {
+function parseList(iter) {
     let pos = iter.requireNext(TokenType.OPEN_BRACKET)
     let list = new DFListNode([], pos.loc());
 

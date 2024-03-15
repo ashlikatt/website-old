@@ -32,14 +32,14 @@ function parseTreeToAST(node, macros, vars) {
         let x = parseTreeToAST(node.x, macros, vars)
         let y = parseTreeToAST(node.y, macros, vars)
         let z = parseTreeToAST(node.z, macros, vars)
-        let pitch = parseTreeToAST(node.pitch, macros, vars)
-        let yaw = parseTreeToAST(node.yaw, macros, vars)
+        let pitch = node.pitch != 0 ? parseTreeToAST(node.pitch, macros, vars) : 0
+        let yaw = node.yaw != 0 ? parseTreeToAST(node.yaw, macros, vars) : 0
 
         if (!(x instanceof DFNumber)) throwASTError("Expected number here, found " + getNodeName(x) + ".")
         if (!(y instanceof DFNumber)) throwASTError("Expected number here, found " + getNodeName(y) + ".")
         if (!(z instanceof DFNumber)) throwASTError("Expected number here, found " + getNodeName(z) + ".")
-        if (!(pitch instanceof DFNumber)) throwASTError(node.pitch.loc, "Expected number here, found " + getNodeName(pitch) + ".")
-        if (!(yaw instanceof DFNumber)) throwASTError(node.yaw.loc, "Expected number here, found " + getNodeName(yaw) + ".")
+        if (!(pitch instanceof DFNumber) && typeof pitch != "number") throwASTError(node.pitch.loc, "Expected number here, found " + getNodeName(pitch) + ".")
+        if (!(yaw instanceof DFNumber) && typeof yaw != "number") throwASTError(node.yaw.loc, "Expected number here, found " + getNodeName(yaw) + ".")
 
         locStack.pop()
         return new DFLocation(x, y, z, pitch, yaw)

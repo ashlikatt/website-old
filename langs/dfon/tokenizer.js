@@ -149,7 +149,6 @@ function tokenize(source) {
 
         // Single line comment
         if (iter.peek() === '/' && iter.peek(1) === '/') {
-            console.log("beginning comment")
             while (iter.hasNext() && iter.peek() !== '\n') {
                 iter.next();
             }
@@ -209,7 +208,7 @@ function tokenize(source) {
             const tokenPosition = iter.position();
             let identifier = ""
 
-            while (iter.hasNext() && (iter.peek() === '_' || isAlphabetic(iter.peek()))) {
+            while (iter.hasNext() && (iter.peek() === '_' || isAlphanumeric(iter.peek()))) {
                 identifier += iter.next()
             }
 
